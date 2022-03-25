@@ -4,12 +4,15 @@ import Title from "../components/navigation/Title";
 import classes from "./Main.module.css";
 import CategoryList from "../components/products/CategoryList";
 import { useDispatch, useSelector } from "react-redux";
-import { Action, ActionType, State } from "../types/redux-types";
+import { Action, ActionType } from "../types/redux-types";
+import { RootState } from "../redux-store/redux-orm-store";
 
 const Main: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<number>(-1);
 
-  const searchValue = useSelector<State, string>((state) => state.searchValue);
+  const searchValue = useSelector<RootState, string>(
+    (state: RootState) => state.shop.searchValue
+  );
 
   const onCategoryChanged = (categoryId: number) => {
     setSelectedCategory(categoryId);

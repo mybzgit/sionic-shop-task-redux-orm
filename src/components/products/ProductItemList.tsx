@@ -5,7 +5,7 @@ import classes from "./ProductItemList.module.css";
 import { Product, ProductImage, ProductVariation } from "../../types/Entities";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { State } from "../../types/redux-types";
+import { RootState } from "../../redux-store/redux-orm-store";
 
 type ProductItemListProps = {
   categoryId: number;
@@ -24,7 +24,9 @@ const ProductItemList: React.FC<ProductItemListProps> = ({
     ProductVariation[]
   >([]);
 
-  const range = useSelector<State, number>((state) => state.currentRange);
+  const range = useSelector<RootState, number>(
+    (state: RootState) => state.shop.currentRange
+  );
 
   useEffect(() => {
     setLoading(true);
@@ -32,7 +34,9 @@ const ProductItemList: React.FC<ProductItemListProps> = ({
       categoryId == -1 ? "" : `filter={"category_id":${categoryId}}`;
     const rangeQuery = `range=[0,${range}]`;
     axios
-      .get<Product[]>(`https://test2.sionic.ru/api/Products?${categoryQuery}&${rangeQuery}`)
+      .get<Product[]>(
+        `https://test2.sionic.ru/api/Products?${rangeQuery}&${categoryQuery}`
+      )
       .then((products) => {
         if (products.data.length) {
           setProductsList([...products.data]);
@@ -40,7 +44,7 @@ const ProductItemList: React.FC<ProductItemListProps> = ({
         }
       });
   }, [categoryId, range]);
-  
+
   useEffect(() => {
     axios
       .get<ProductImage[]>("https://test2.sionic.ru/api/ProductImages")
@@ -64,8 +68,9 @@ const ProductItemList: React.FC<ProductItemListProps> = ({
   return (
     <div className={classes.product_list}>
       {loading && <p>Loading products...</p>}
-      {productsList.length === 0 && !loading && <p>No products found</p>}
+      {productsList.length === 0 && !loading&& <p>No products found</p>}
       {!loading && productsList.length > 0 &&
+        productVariations.length > 0 &&
         productImages.length > 0 &&
         productsList
           .filter((p) => p.name.indexOf(searchValue) !== -1)
@@ -75,7 +80,9 @@ const ProductItemList: React.FC<ProductItemListProps> = ({
                 key={p.id}
                 product={p}
                 product_image={productImages.find((i) => i.product_id == p.id)}
-                product_variations={productVariations.filter(v => v.product_id == p.id )}
+                product_variations={productVariations.filter(
+                  (v) => v.product_id == p.id
+                )}
               />
             );
           })}

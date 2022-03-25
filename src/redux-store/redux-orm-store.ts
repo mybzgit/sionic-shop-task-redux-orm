@@ -13,7 +13,6 @@ import { ORM, createReducer } from "redux-orm";
 
 import shopReducer from "./shop-reducer";
 
-
 const orm = new ORM();
 orm.register(
   Product,
@@ -25,12 +24,12 @@ orm.register(
   ProductVariationPropertyListValue
 );
 
-
 const rootReducer = combineReducers({
   orm: createReducer(orm),
   shop: shopReducer
 });
 
 export const store = createStore(rootReducer);
+export type RootState = ReturnType<typeof store.getState>;
 export const session = orm.session();
 

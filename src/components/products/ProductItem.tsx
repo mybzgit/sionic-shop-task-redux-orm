@@ -26,10 +26,8 @@ const ProductItem: React.FC<ProductItemProps> = ({
       </div> */}
       {product_variations?.length > 0 && (
         <select>
-          <option key={-1} value="-1">
-            All
-          </option>
-          {product_variations?.map((v) => {
+          {product_variations?.sort((v1, v2) => v1.price > v2.price ? 1 : -1)
+          .map((v) => {
             return (
               <option key={v.id} value={v.id}>
                 {v.price}

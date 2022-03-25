@@ -9,7 +9,6 @@ const SearchBar: React.FC = () => {
 
   const dispatch = useDispatch();
 
-
   const onSearch = () => {
     const action: Action = {
       type: ActionType.SET_SEARCH_VALUE,

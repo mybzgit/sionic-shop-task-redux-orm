@@ -1,7 +1,7 @@
 import { Model, fk, attr } from "redux-orm";
 
 export class Category extends Model {
-  static modelName = "Cateogry";
+  static modelName = "Category";
   static fields = {
     id: attr(),
     name: attr(),
@@ -43,12 +43,12 @@ export class ProductVariationProperty extends Model {
   static fields = {
     id: attr(),
     name: attr(),
-    type: attr(),
+    type: attr()
   };
 }
 
 export class ProductVariationPropertyValue extends Model {
-  static modelName = "ProductVariation";
+  static modelName = "ProductVariationPropertyValue";
   static fields = {
     id: attr(),
     value_string: attr(),
