@@ -1,0 +1,35 @@
+:root {
+  --accent-blue: #2967ff;
+  --accent-pink: #ff2d87;
+  --accent-fore-color: #ffffff;
+  --secondary-back-color: #f0f4fb;
+  --secondary-border-color: #aec2ea;
+  --primary-fore-color: #727280;
+  --primary-dark: #2d2d2f;
+}
+
+.App {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  grid-template-rows: 5rem 1fr 6rem;
+  height: 100vh;
+}
+.App .header {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+.App .sidebar {
+  grid-column: span 1;
+  grid-row: span 2;
+  border-left: 1px solid var(--secondary-back-color);
+  padding: 2rem;
+}
+.App .main {
+  grid-column: span 1;
+  grid-row: span 1;
+  padding: 2rem;
+}
+.App .footer {
+  grid-column: span 2;
+  grid-row: span 1;
+}

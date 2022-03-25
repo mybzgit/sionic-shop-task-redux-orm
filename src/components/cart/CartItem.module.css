@@ -1,0 +1,42 @@
+.item {
+  display: flex;
+  column-gap: 1rem;
+  align-items: center;
+  border-bottom: 1px solid var(--secondary-border-color);
+  padding: 0.5rem;
+}
+.item img {
+  width: 70px;
+  height: 70px;
+  border: 1px solid lightgray;
+}
+.price_info {
+  display: flex;
+  flex-direction: column;
+}
+.previous_price {
+  color: #8d8d8e;
+  text-decoration: line-through;
+}
+.current_price {
+  font-weight: 600;
+  color: var(--primary-dark);
+}
+.item button {
+  border: none;
+  background-color: transparent;
+  color: var(--secondary-border-color);
+  font-size: 1rem;
+  height: 1rem;
+}
+
+.item input {
+  height: 2rem;
+  border: 1px solid var(--secondary-border-color);
+  border-radius: 2rem;
+  padding: 0 1rem;
+  width: 3rem;
+}
+.item input:focus {
+  outline: none;
+}

@@ -1,0 +1,48 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+  width: 215px;
+}
+.card img {
+  width: 100%;
+  height: 150px;
+  border: 1px solid lightgray;
+}
+.product_title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+.current_price {
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--accent-blue);
+}
+/* .sale {
+  width: 65%;
+}
+.previous_price {
+  color: #8d8d8e;
+  text-decoration: line-through;
+}
+.discount {
+  float: right;
+  color: var(--accent-pink);
+  font-weight: 600;
+  display: block;
+} */
+.card button {
+  height: 2rem;
+  background-color: transparent;
+  border: 1px solid var(--accent-blue);
+  color: var(--accent-blue);
+  border-radius: 2rem;
+  width: 100%;
+}
+.card button:hover {
+  background-color: var(--accent-blue);
+  color: var(--accent-fore-color);
+}

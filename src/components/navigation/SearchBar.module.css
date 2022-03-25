@@ -1,0 +1,30 @@
+.search {
+  height: 2rem;
+  width: 30%;
+  border-radius: 1.2rem;
+  border: 1px solid var(--secondary-back-color);
+  padding: 0.2rem;
+  display: flex;
+}
+.search > * {
+  font-size: 1rem;
+}
+.search input {
+  color: var(--primary-fore-color);
+  border: none;
+  margin: 0 0.5rem;
+  width: 100%;
+}
+.search input:focus {
+  outline: none;
+}
+.search button {
+  border: none;
+  background-color: var(--secondary-back-color);
+  border-radius: 1rem;
+  padding: 0 1.5rem;
+}
+.search button:hover {
+  background-color: var(--accent-fore-color);
+  border: 1px solid var(--secondary-back-color);
+}

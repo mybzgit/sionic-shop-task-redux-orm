@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  column-gap: 2rem;
+}
+.order_details,
+.order_info,
+form {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  row-gap: 0.5rem;
+}
+.order_info {
+  display: flex;
+  flex-direction: column;
+}
+.container input {
+  height: 2rem;
+  border: 1px solid var(--secondary-back-color);
+  border-radius: 2rem;
+  padding: 0 1rem;
+  width: 15rem;
+}
+.container input:focus {
+  outline: none;
+}
+.container label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.order_details > span {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+.date_time {
+  display: flex;
+  column-gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.order_button {
+  height: 3rem;
+  font-size: 1rem;
+  background-color: var(--accent-blue);
+  border: none;
+  color: var(--accent-fore-color);
+  border-radius: 2rem;
+  width: 100%;
+  margin-top: 1rem;
+}
+.order_button:hover {
+  background-color: var(--accent-fore-color);
+  color: var(--accent-blue);
+  border: 1px solid var(--accent-blue);
+}
