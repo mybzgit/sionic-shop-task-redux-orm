@@ -46,3 +46,12 @@
   background-color: var(--accent-blue);
   color: var(--accent-fore-color);
 }
+
+
+.card select {
+  border: 1px solid var(--secondary-border-color);
+  border-radius: 2rem;
+}
+.card select:focus{
+  outline: none;
+}

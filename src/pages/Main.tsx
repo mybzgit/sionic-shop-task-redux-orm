@@ -18,11 +18,9 @@ const Main: React.FC = () => {
     setSelectedCategory(categoryId);
   };
   const dispatch = useDispatch();
+  
   const onMoreClick = () => {
-    const action: Action = {
-      type: ActionType.LOAD_MORE,
-    };
-    dispatch(action);
+
   };
   return (
     <Fragment>

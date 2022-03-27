@@ -5,7 +5,11 @@ import classes from "./ProductItemList.module.css";
 import { Product, ProductImage, ProductVariation } from "../../types/Entities";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux-store/redux-orm-store";
+import {
+  RootState,
+  productsSelector,
+  session,
+} from "../../redux-store/redux-orm-store";
 
 type ProductItemListProps = {
   categoryId: number;
@@ -24,26 +28,38 @@ const ProductItemList: React.FC<ProductItemListProps> = ({
     ProductVariation[]
   >([]);
 
-  const range = useSelector<RootState, number>(
-    (state: RootState) => state.shop.currentRange
-  );
+  // const productSelector = createSelector(
+  //   orm,
+  //   (state: RootState) => state.orm,
+  //   (session) => {
+  //     return session.Product.all().toRefArray();
+  //   }
+  // );
 
+  const fillProducts = (products: Product[]) => {
+    products.map((p) => {
+      session.Product.create({ ...p });
+    });
+  };
+
+  const product = useSelector((state: RootState) => productsSelector(state.orm));
+  console.log(product, session.Product.first());
+  
   useEffect(() => {
     setLoading(true);
     const categoryQuery =
       categoryId == -1 ? "" : `filter={"category_id":${categoryId}}`;
-    const rangeQuery = `range=[0,${range}]`;
+
     axios
-      .get<Product[]>(
-        `https://test2.sionic.ru/api/Products?${rangeQuery}&${categoryQuery}`
-      )
+      .get<Product[]>(`https://test2.sionic.ru/api/Products?${categoryQuery}`)
       .then((products) => {
         if (products.data.length) {
           setProductsList([...products.data]);
+          fillProducts([...products.data]);
           setLoading(false);
         }
       });
-  }, [categoryId, range]);
+  }, [categoryId]);
 
   useEffect(() => {
     axios
@@ -66,10 +82,12 @@ const ProductItemList: React.FC<ProductItemListProps> = ({
   }, []);
 
   return (
+    
     <div className={classes.product_list}>
       {loading && <p>Loading products...</p>}
-      {productsList.length === 0 && !loading&& <p>No products found</p>}
-      {!loading && productsList.length > 0 &&
+      {productsList.length === 0 && !loading && <p>No products found</p>}
+      {!loading &&
+        productsList.length > 0 &&
         productVariations.length > 0 &&
         productImages.length > 0 &&
         productsList
