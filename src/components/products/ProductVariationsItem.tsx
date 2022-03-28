@@ -30,19 +30,14 @@ const ProductVariationsItem: React.FC<ProductVariationsItemProps> = ({
     variations.sort((v1, v2) => (v1.price > v2.price ? 1 : -1));
   }
 
-  // if (product_variations.length > 0) {
-  //   let ids = "";
-  //   product_variations.forEach((pv) => {
-  //     session.Product.create({ ...pv });
-  //     ids = ids + p.id + ",";
-  //   });
-  //   ids = ids.substring(0, ids.length - 1);
-  //   setProductIds(ids);
-  // }
-
   const [currentVariation, setCurrentVariation] = useState<ProductVariation>({
     ...variations[0],
   });
+
+  useEffect(() => {
+    setCurrentVariation({...variations[0]});
+  }, [])
+
   const [productVariationProperties, setProductVariationProperties] = useState<
     ProductVariationProperty[]
   >([]);
@@ -104,7 +99,7 @@ const ProductVariationsItem: React.FC<ProductVariationsItemProps> = ({
     const pvpv = productVariationPropertyValues.find(
       (pvpv) => pvpv.product_variation_property_id === id
     );
-    let value = "";
+    let value = '';
     if (type === 0) {
       value = pvpv!.value_string;
     }
@@ -114,20 +109,23 @@ const ProductVariationsItem: React.FC<ProductVariationsItemProps> = ({
     if (type === 2) {
       value = pvpv!.value_float.toString();
     }
-    if(type === 3) {
-      const listValue = productVariationPropertyListValues.find(lv => 
-        lv.product_variation_property_id === pvpv?.product_variation_property_id && lv.id === pvpv?.product_variation_property_list_value_id);
+    if (type === 3) {
+      const listValue = productVariationPropertyListValues.find(
+        (lv) =>
+          lv.product_variation_property_id ===
+            pvpv?.product_variation_property_id &&
+          lv.id === pvpv?.product_variation_property_list_value_id
+      );
       value = listValue!.title;
     }
     return value;
-   
   };
 
   return (
-    <div>
-      {variations.length > 0 && (
+    <div className={classes.variations_container}>
+      {variations.length > 0 && currentVariation.id && (
         <Fragment>
-          <label>Цена:</label>
+          <label>цена от</label>
           <select onChange={onVariationIdChanged}>
             {variations.map((v) => {
               return (
@@ -137,20 +135,18 @@ const ProductVariationsItem: React.FC<ProductVariationsItemProps> = ({
               );
             })}
           </select>
+          <span className={classes.stock}>В наличии: {currentVariation.stock}</span>
         </Fragment>
       )}
-
-      <div>
-        В наличии: {currentVariation.stock}
-      </div>
-
+<br/>
       {productVariationProperties.length > 0 &&
-        productVariationPropertyValues.length > 0 && productVariationPropertyListValues.length > 0 &&
+        productVariationPropertyValues.length > 0 &&
+        productVariationPropertyListValues.length > 0 &&
         productVariationProperties.map((pvp) => {
           return (
-            <div key={pvp.id}>
+            <span className={classes.variations} key={pvp.id}>
               <b>{pvp.name}:</b> {getPropertyValueByType(pvp.id, pvp.type)}
-            </div>
+            </span>
           );
         })}
     </div>

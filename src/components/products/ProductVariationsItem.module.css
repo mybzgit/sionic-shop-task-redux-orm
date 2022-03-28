@@ -1,0 +1,24 @@
+.variations_container select {
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-family: "Raleway";
+  color: var(--accent-blue);
+  border: none;
+}
+.variations_container option {
+  color: black;
+  font-size: 1rem;
+}
+.variations_container label {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--accent-blue);
+}
+
+.variations {
+  font-size: 0.9rem;
+  display: block;
+}
+.stock {
+  color: var(--accent-pink);
+}

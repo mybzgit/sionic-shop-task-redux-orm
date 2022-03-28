@@ -20,11 +20,6 @@ const ProductItem: React.FC<ProductItemProps> = ({
     <div className={classes.card}>
       <img src={imageLocation + product_image?.image_url} alt="product-image" />
       <span className={classes.product_title}>{product.name}</span>
-      <span className={classes.current_price}>{product.id}</span>
-      {/* <div className={classes.sale}>
-        <span className={classes.previous_price}>450 000 &#8381;</span>
-        <span className={classes.discount}>-10%</span>
-      </div> */}
       <ProductVariationsItem variations={product_variations} />
       <button type="button">Добавить в корзину</button>
     </div>

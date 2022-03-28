@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: flex-start;
   padding: 0;
-  width: 215px;
+  width: 250px;
 }
 .card img {
   width: 100%;
@@ -16,24 +16,6 @@
   text-overflow: ellipsis;
   width: 100%;
 }
-.current_price {
-  font-weight: 600;
-  font-size: 1.5rem;
-  color: var(--accent-blue);
-}
-/* .sale {
-  width: 65%;
-}
-.previous_price {
-  color: #8d8d8e;
-  text-decoration: line-through;
-}
-.discount {
-  float: right;
-  color: var(--accent-pink);
-  font-weight: 600;
-  display: block;
-} */
 .card button {
   height: 2rem;
   background-color: transparent;
@@ -47,11 +29,10 @@
   color: var(--accent-fore-color);
 }
 
-
 .card select {
   border: 1px solid var(--secondary-border-color);
   border-radius: 2rem;
 }
-.card select:focus{
+.card select:focus {
   outline: none;
 }
