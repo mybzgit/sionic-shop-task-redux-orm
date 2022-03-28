@@ -8,16 +8,6 @@ export class Category extends Model {
   };
 }
 
-interface CreateProductAction {
-  type: "CREATE_PRODUCT";
-  payload: {
-    id: number;
-    name: string;
-    description: string;
-    category_id: number;
-  };
-}
-
 export class Product extends Model {
   static modelName = "Product";
   static fields = {
@@ -26,13 +16,6 @@ export class Product extends Model {
     description: attr(),
     category_id: fk("Category", "products"),
   };
-  static reducer(action: CreateProductAction) {
-    switch (action.type) {
-      case "CREATE_PRODUCT":
-        Product.create(action.payload);
-        break;
-    }
-  }
 }
 
 export class ProductImage extends Model {

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Product, ProductImage, ProductVariation } from "../../types/Entities";
 import classes from "./ProductItem.module.css";
+import ProductVariationsItem from './ProductVariationsItem';
 
 type ProductItemProps = {
   product: Product;
@@ -24,18 +25,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
         <span className={classes.previous_price}>450 000 &#8381;</span>
         <span className={classes.discount}>-10%</span>
       </div> */}
-      {product_variations?.length > 0 && (
-        <select>
-          {product_variations?.sort((v1, v2) => v1.price > v2.price ? 1 : -1)
-          .map((v) => {
-            return (
-              <option key={v.id} value={v.id}>
-                {v.price}
-              </option>
-            );
-          })}
-        </select>
-      )}
+      <ProductVariationsItem variations={product_variations} />
       <button type="button">Добавить в корзину</button>
     </div>
   );

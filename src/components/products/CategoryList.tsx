@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { ChangeEvent, ChangeEventHandler, useEffect, useState } from "react";
+import { session } from "../../redux-store/redux-orm-store";
 import { Category } from "../../types/Entities";
 import classes from "./CategoryList.module.css";
 
@@ -12,11 +13,18 @@ const CategoryList: React.FC<CategoryListProps> = ({
 }: CategoryListProps) => {
   const [categories, setCategories] = useState<Category[]>([]);
 
+  const fillCategories = (categories: Category[]) => {
+    categories.forEach((c) => {
+      session.Category.create({ ...c });
+    });
+  };
+
   useEffect(() => {
     axios
       .get<Category[]>("https://test2.sionic.ru/api/Categories")
       .then((response) => {
         if (response.data.length) {
+          fillCategories([...response.data]);
           setCategories([...response.data]);
         }
       });
