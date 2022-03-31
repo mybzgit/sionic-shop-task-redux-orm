@@ -6,7 +6,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { session } from "../../redux-store/redux-orm-store";
+import { passDataToSession, session } from "../../redux-store/redux-orm-store";
 import {
   ProductVariationType,
   ProductVariationPropertyType,
@@ -56,6 +56,7 @@ const ProductVariationsItem: React.FC<ProductVariationsItemProps> = ({
       )
       .then((response) => {
         if (response.data.length) {
+          passDataToSession([...response.data], "ProductVariationPropertyValueType");
           setProductVariationPropertyValues([...response.data]);
         }
       });
@@ -68,6 +69,7 @@ const ProductVariationsItem: React.FC<ProductVariationsItemProps> = ({
       )
       .then((response) => {
         if (response.data.length) {
+          passDataToSession([...response.data], 'ProductVariationPropertyType');
           setProductVariationProperties([...response.data]);
         }
       });
@@ -80,6 +82,7 @@ const ProductVariationsItem: React.FC<ProductVariationsItemProps> = ({
       )
       .then((response) => {
         if (response.data.length) {
+          passDataToSession([...response.data], 'ProductVariationPropertyListValueType');
           setProductVariationPropertyListValues([...response.data]);
         }
       });

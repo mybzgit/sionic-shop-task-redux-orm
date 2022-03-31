@@ -6,20 +6,13 @@ import React, {
   useState,
 } from "react";
 import { useDispatch } from "react-redux";
-import { session } from "../../redux-store/redux-orm-store";
+import { passDataToSession, session } from "../../redux-store/redux-orm-store";
 import { CategoryType } from "../../types/Entities";
 import { Action, ActionType } from "../../types/redux-types";
 import classes from "./CategoryList.module.css";
 
 const CategoryList: React.FC = () => {
-
   const [categories, setCategories] = useState<CategoryType[]>([]);
-
-  const fillCategories = (categories: CategoryType[]) => {
-    categories.forEach((c) => {
-      session.Category.create({ ...c });
-    });
-  };
 
   useEffect(() => {
     if (session.Category.count() === 0) {
@@ -27,15 +20,16 @@ const CategoryList: React.FC = () => {
         .get<CategoryType[]>("https://test2.sionic.ru/api/Categories")
         .then((response) => {
           if (response.data.length) {
-            fillCategories([...response.data]);
+            passDataToSession([...response.data], "CategoryType");
             setCategories([...response.data]);
           }
         });
-    }
-    else {
-      const categoriesFromSession = session.Category.all().toRefArray().map(c => {
-        return c as CategoryType;
-      })
+    } else {
+      const categoriesFromSession = session.Category.all()
+        .toRefArray()
+        .map((c) => {
+          return c as CategoryType;
+        });
       setCategories([...categoriesFromSession]);
     }
   }, []);
@@ -45,10 +39,10 @@ const CategoryList: React.FC = () => {
   const onCategoryChanged: ChangeEventHandler<HTMLSelectElement> = (
     e: ChangeEvent<HTMLSelectElement>
   ) => {
-    const action:Action = {
+    const action: Action = {
       type: ActionType.SET_SELECTED_CATEGORY,
-      selectedCategoryPayload: +e.target.value
-    }
+      selectedCategoryPayload: +e.target.value,
+    };
     dispatch(action);
   };
 

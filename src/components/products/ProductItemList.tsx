@@ -9,8 +9,7 @@ import {
   ProductVariationType,
 } from "../../types/Entities";
 import axios from "axios";
-import { useDispatch, useSelector, useStore } from "react-redux";
-import { RootState, session } from "../../redux-store/redux-orm-store";
+import { passDataToSession, session } from "../../redux-store/redux-orm-store";
 
 type ProductItemListProps = {
   categoryId: number;
@@ -29,30 +28,21 @@ const ProductItemList: React.FC<ProductItemListProps> = ({
     ProductVariationType[]
   >([]);
 
-  const [productIds, setProductIds] = useState('');
+  const [productIds, setProductIds] = useState("");
 
-  const fillProducts = (products: ProductType[]) => {
-    let ids = '';
+  const collectProductIds = (products: ProductType[]) => {
+    let ids = "";
     products.forEach((p) => {
-      session.Product.create({ ...p });
       ids = ids + p.id + ",";
     });
     ids = ids.substring(0, ids.length - 1);
     setProductIds(ids);
   };
 
-  const fillProductImages = (images: ProductImageType[]) => {
-    images.forEach((i) => {
-      session.ProductImage.create({ ...i });
-    });
-  };
-
   useEffect(() => {
     setLoading(true);
     const categoryQuery =
       categoryId == -1 ? "" : `filter={"category_id":${categoryId}}`;
-
-    
 
     axios
       .get<ProductType[]>(
@@ -61,12 +51,11 @@ const ProductItemList: React.FC<ProductItemListProps> = ({
       .then((products) => {
         if (products.data.length) {
           setProductsList([...products.data]);
-          fillProducts([...products.data]);
-
-      //    console.log((session.Category.withId(categoryId) as any).products?.count());
-
-          console.log((session.Category.withId(categoryId) as any).products.all().toRefArray());
+          passDataToSession([...products.data], "ProductType");
+          collectProductIds([...products.data]);
           setLoading(false);
+          //    console.log((session.Category.withId(categoryId) as any).products?.count());
+          //   console.log((session.Category.withId(categoryId) as any).products.all().toRefArray());
         }
       });
   }, [categoryId]);
@@ -74,45 +63,48 @@ const ProductItemList: React.FC<ProductItemListProps> = ({
   useEffect(() => {
     const productIdQuery = `filter={"product_id":[${productIds}]}`;
 
-    axios
-      .get<ProductImageType[]>(
-        `https://test2.sionic.ru/api/ProductImages?${productIdQuery}`
-      )
-      .then((images) => {
-        if (images.data.length) {
-          fillProductImages([...images.data]);
-          setProductImages([...images.data]);
+    const productImagesRequest = axios.get(
+      `https://test2.sionic.ru/api/ProductImages?${productIdQuery}`
+    );
+    const productVariationsRequest = axios.get(
+      `https://test2.sionic.ru/api/ProductVariations?${productIdQuery}`
+    );
+
+    axios.all([productImagesRequest, productVariationsRequest]).then(
+      axios.spread((...responses) => {
+        const images = responses[0].data as ProductImageType[];
+        const variations = responses[1].data as ProductVariationType[];
+        if (images.length) {
+          passDataToSession([...images], "ProductImageType");
+          setProductImages([...images]);
         }
-      });
+        if (variations.length) {
+          passDataToSession([...variations], "ProductVariationType");
+          setProductVariations([...variations]);
+        }
+      })
+    );
   }, [categoryId, productIds]);
 
-  useEffect(() => {
-    const productIdQuery = `filter={"product_id":[${productIds}]}`;
-    axios
-      .get<ProductVariationType[]>(`https://test2.sionic.ru/api/ProductVariations?${productIdQuery}`)
-      .then((variations) => {
-        if (variations.data.length) {
-          setProductVariations([...variations.data]);
-        }
-      });
-  }, [categoryId, productIds]);
+  const filteredProducts = productsList.filter((p) => p.name.indexOf(searchValue) !== -1);
 
   return (
     <div className={classes.product_list}>
       {loading && <p>Loading products...</p>}
-      {productsList.length === 0 && !loading && <p>No products found</p>}
+      {filteredProducts.length === 0 && !loading && <p>No products found</p>}
       {!loading &&
         productsList.length > 0 &&
         productImages.length > 0 &&
         productVariations.length > 0 &&
-        productsList
-          .filter((p) => p.name.indexOf(searchValue) !== -1)
+        filteredProducts
           .map((p) => {
             return (
               <ProductItem
                 key={p.id}
                 product={p}
-                product_image={productImages.find((i) => i.product_id == p.id)}
+                product_images={productImages.filter(
+                  (i) => i.product_id == p.id
+                )}
                 product_variations={productVariations.filter(
                   (v) => v.product_id == p.id
                 )}

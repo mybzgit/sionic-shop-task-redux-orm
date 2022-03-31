@@ -8,6 +8,16 @@ import {
   ProductVariationPropertyListValue,
 } from "./redux-orm-entities";
 
+import {
+  CategoryType,
+  ProductType,
+  ProductImageType,
+  ProductVariationType,
+  ProductVariationPropertyType,
+  ProductVariationPropertyValueType,
+  ProductVariationPropertyListValueType,
+} from "../types/Entities";
+
 import { createStore, combineReducers } from "redux";
 import { ORM, createReducer, createSelector } from "redux-orm";
 
@@ -45,7 +55,31 @@ const rootReducer = combineReducers({
 });
 
 export const store = createStore(rootReducer);
-const dbState = store.getState().orm;
-export const session = orm.mutableSession(dbState);
-
 export type RootState = ReturnType<typeof store.getState>;
+const dbState = store.getState().orm;
+export const session = orm.session(dbState);
+
+export const passDataToSession = (array: any[], type: string): void => {
+  array.map((item) => {
+    if (type === "CategoryType")
+      session.Category.create({ ...item } as CategoryType);
+    if (type === "ProductType")
+      session.Product.create({ ...item } as ProductType);
+    if (type === "ProductImageType")
+      session.ProductImage.create({ ...item } as ProductImageType);
+    if (type === "ProductVariationType")
+      session.ProductVariation.create({ ...item } as ProductVariationType);
+    if (type === "ProductVariationPropertyType")
+      session.ProductVariationProperty.create({
+        ...item,
+      } as ProductVariationPropertyType);
+    if (type === "ProductVariationPropertyValueType")
+      session.ProductVariationPropertyValue.create({
+        ...item,
+      } as ProductVariationPropertyValueType);
+    if (type === "ProductVariationPropertyListValueType")
+      session.ProductVariationPropertyListValue.create({
+        ...item,
+      } as ProductVariationPropertyListValueType);
+  });
+};
