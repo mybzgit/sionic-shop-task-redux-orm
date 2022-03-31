@@ -1,7 +1,6 @@
 .categories {
   display: flex;
   align-items: center;
-  height: 4rem;
   column-gap: 1rem;
 }
 button.loadmore {

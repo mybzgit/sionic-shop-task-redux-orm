@@ -3,10 +3,10 @@ import ProductItem from "./ProductItem";
 import classes from "./ProductItemList.module.css";
 
 import {
-  Category,
-  Product,
-  ProductImage,
-  ProductVariation,
+  CategoryType,
+  ProductType,
+  ProductImageType,
+  ProductVariationType,
 } from "../../types/Entities";
 import axios from "axios";
 import { useDispatch, useSelector, useStore } from "react-redux";
@@ -23,15 +23,15 @@ const ProductItemList: React.FC<ProductItemListProps> = ({
 }: ProductItemListProps) => {
   const [loading, setLoading] = useState(true);
 
-  const [productsList, setProductsList] = useState<Product[]>([]);
-  const [productImages, setProductImages] = useState<ProductImage[]>([]);
+  const [productsList, setProductsList] = useState<ProductType[]>([]);
+  const [productImages, setProductImages] = useState<ProductImageType[]>([]);
   const [productVariations, setProductVariations] = useState<
-    ProductVariation[]
+    ProductVariationType[]
   >([]);
 
   const [productIds, setProductIds] = useState('');
 
-  const fillProducts = (products: Product[]) => {
+  const fillProducts = (products: ProductType[]) => {
     let ids = '';
     products.forEach((p) => {
       session.Product.create({ ...p });
@@ -41,27 +41,31 @@ const ProductItemList: React.FC<ProductItemListProps> = ({
     setProductIds(ids);
   };
 
-  const fillProductImages = (images: ProductImage[]) => {
+  const fillProductImages = (images: ProductImageType[]) => {
     images.forEach((i) => {
       session.ProductImage.create({ ...i });
     });
   };
-
- 
 
   useEffect(() => {
     setLoading(true);
     const categoryQuery =
       categoryId == -1 ? "" : `filter={"category_id":${categoryId}}`;
 
+    
+
     axios
-      .get<Product[]>(
-        `https://test2.sionic.ru/api/Products?${categoryQuery}&range=[0,7]`
+      .get<ProductType[]>(
+        `https://test2.sionic.ru/api/Products?${categoryQuery}&range=[0,3]`
       )
       .then((products) => {
         if (products.data.length) {
           setProductsList([...products.data]);
           fillProducts([...products.data]);
+
+      //    console.log((session.Category.withId(categoryId) as any).products?.count());
+
+          console.log((session.Category.withId(categoryId) as any).products.all().toRefArray());
           setLoading(false);
         }
       });
@@ -71,7 +75,7 @@ const ProductItemList: React.FC<ProductItemListProps> = ({
     const productIdQuery = `filter={"product_id":[${productIds}]}`;
 
     axios
-      .get<ProductImage[]>(
+      .get<ProductImageType[]>(
         `https://test2.sionic.ru/api/ProductImages?${productIdQuery}`
       )
       .then((images) => {
@@ -80,18 +84,18 @@ const ProductItemList: React.FC<ProductItemListProps> = ({
           setProductImages([...images.data]);
         }
       });
-  }, [productIds]);
+  }, [categoryId, productIds]);
 
   useEffect(() => {
     const productIdQuery = `filter={"product_id":[${productIds}]}`;
     axios
-      .get<ProductVariation[]>(`https://test2.sionic.ru/api/ProductVariations?${productIdQuery}`)
+      .get<ProductVariationType[]>(`https://test2.sionic.ru/api/ProductVariations?${productIdQuery}`)
       .then((variations) => {
         if (variations.data.length) {
           setProductVariations([...variations.data]);
         }
       });
-  }, [productIds]);
+  }, [categoryId, productIds]);
 
   return (
     <div className={classes.product_list}>

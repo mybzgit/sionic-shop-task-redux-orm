@@ -2,7 +2,8 @@ import { Reducer } from "redux";
 import { State, Action, ActionType } from "../types/redux-types";
 
 const initialState: State = {
-  searchValue: ""
+  searchValue: "",
+  selectedCategory: -1,
 };
 
 const shopReducer: Reducer<State, Action> = (
@@ -11,7 +12,14 @@ const shopReducer: Reducer<State, Action> = (
 ) => {
   if (action.type === ActionType.SET_SEARCH_VALUE) {
     return {
-      searchValue: action.searchValuePayload!
+      ...state,
+      searchValue: action.searchValuePayload!,
+    };
+  }
+  if (action.type === ActionType.SET_SELECTED_CATEGORY) {
+    return {
+      ...state,
+      selectedCategory: action.selectedCategoryPayload!,
     };
   }
  

@@ -8,15 +8,15 @@ import {
 } from "react";
 import { session } from "../../redux-store/redux-orm-store";
 import {
-  ProductVariation,
-  ProductVariationProperty,
-  ProductVariationPropertyListValue,
-  ProductVariationPropertyValue,
+  ProductVariationType,
+  ProductVariationPropertyType,
+  ProductVariationPropertyListValueType,
+  ProductVariationPropertyValueType,
 } from "../../types/Entities";
 import classes from "./ProductVariationsItem.module.css";
 
 type ProductVariationsItemProps = {
-  variations: ProductVariation[];
+  variations: ProductVariationType[];
 };
 
 const ProductVariationsItem: React.FC<ProductVariationsItemProps> = ({
@@ -30,43 +30,40 @@ const ProductVariationsItem: React.FC<ProductVariationsItemProps> = ({
     variations.sort((v1, v2) => (v1.price > v2.price ? 1 : -1));
   }
 
-  const [currentVariation, setCurrentVariation] = useState<ProductVariation>({
+  const [currentVariation, setCurrentVariation] = useState<ProductVariationType>({
     ...variations[0],
   });
 
   useEffect(() => {
     setCurrentVariation({...variations[0]});
-  }, [])
+  }, [variations])
 
   const [productVariationProperties, setProductVariationProperties] = useState<
-    ProductVariationProperty[]
+    ProductVariationPropertyType[]
   >([]);
   const [productVariationPropertyValues, setProductVariationPropertyValues] =
-    useState<ProductVariationPropertyValue[]>([]);
-
+    useState<ProductVariationPropertyValueType[]>([]);
   const [
     productVariationPropertyListValues,
     setProductVariationPropertyListValues,
-  ] = useState<ProductVariationPropertyListValue[]>([]);
+  ] = useState<ProductVariationPropertyListValueType[]>([]);
 
   useEffect(() => {
     axios
-      .get<ProductVariationPropertyValue[]>(
-        `https://test2.sionic.ru/api/ProductVariationPropertyValues?filter={"product_variation_id":${currentVariation.id}}`
+      .get<ProductVariationPropertyValueType[]>(
+        `https://test2.sionic.ru/api/ProductVariationPropertyValues?
+        filter={"product_variation_id":${currentVariation.id}}`
       )
       .then((response) => {
         if (response.data.length) {
-          console.log(response.data);
           setProductVariationPropertyValues([...response.data]);
-          // fillCategories([...response.data]);
-          // setCategories([...response.data]);
         }
       });
   }, [currentVariation.id]);
 
   useEffect(() => {
     axios
-      .get<ProductVariationProperty[]>(
+      .get<ProductVariationPropertyType[]>(
         `https://test2.sionic.ru/api/ProductVariationProperties`
       )
       .then((response) => {
@@ -78,7 +75,7 @@ const ProductVariationsItem: React.FC<ProductVariationsItemProps> = ({
 
   useEffect(() => {
     axios
-      .get<ProductVariationPropertyListValue[]>(
+      .get<ProductVariationPropertyListValueType[]>(
         `https://test2.sionic.ru/api/ProductVariationPropertyListValues`
       )
       .then((response) => {

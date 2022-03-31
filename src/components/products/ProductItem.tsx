@@ -1,12 +1,12 @@
 import React from "react";
-import { Product, ProductImage, ProductVariation } from "../../types/Entities";
+import { ProductType, ProductImageType, ProductVariationType } from "../../types/Entities";
 import classes from "./ProductItem.module.css";
 import ProductVariationsItem from './ProductVariationsItem';
 
 type ProductItemProps = {
-  product: Product;
-  product_image?: ProductImage;
-  product_variations?: ProductVariation[];
+  product: ProductType;
+  product_image?: ProductImageType;
+  product_variations?: ProductVariationType[];
 };
 
 const ProductItem: React.FC<ProductItemProps> = ({
