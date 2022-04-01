@@ -1,5 +1,5 @@
 import { Reducer } from "redux";
-import { State, Action, ActionType } from "../types/redux-types";
+import { State, Action, ActionType } from "../types/shop-store-types";
 
 const initialState: State = {
   searchValue: "",

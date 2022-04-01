@@ -12,7 +12,7 @@ import {
   ProductVariationPropertyListValueType,
   ProductVariationPropertyType,
 } from "../../types/Entities";
-import { Action, ActionType } from "../../types/redux-types";
+import { Action, ActionType } from "../../types/shop-store-types";
 import classes from "./CategoryList.module.css";
 
 const CategoryList: React.FC = () => {

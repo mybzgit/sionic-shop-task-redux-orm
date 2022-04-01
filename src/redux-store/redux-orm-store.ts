@@ -19,7 +19,7 @@ import {
 } from "../types/Entities";
 
 import { createStore, combineReducers, compose } from "redux";
-import { ORM, createReducer, createSelector } from "redux-orm";
+import { ORM, createReducer } from "redux-orm";
 
 import shopReducer from "./shop-reducer";
 

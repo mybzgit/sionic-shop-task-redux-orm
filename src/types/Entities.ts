@@ -26,12 +26,6 @@ export type ProductVariationPropertyType = {
   name: string;
   type: number;
 };
-enum PropertyType {
-  value_string,
-  value_int,
-  value_float,
-  product_variation_property_list_value_id,
-}
 export type ProductVariationPropertyListValueType = {
   id: number;
   product_variation_property_id: number;
@@ -46,4 +40,35 @@ export type ProductVariationPropertyValueType = {
   value_int: number;
   value_float: string;
   product_variation_property_list_value_id: number;
+};
+
+export const getPropertyValueByType = (
+  id: number,
+  type: number,
+  productVariationPropertyValues: ProductVariationPropertyValueType[],
+  productVariationPropertyListValues: ProductVariationPropertyListValueType[]
+) => {
+  const pvpv = productVariationPropertyValues.find(
+    (pvpv) => pvpv.product_variation_property_id === id
+  );
+  let value = "";
+  if (type === 0) {
+    value = pvpv!.value_string;
+  }
+  if (type === 1) {
+    value = pvpv!.value_int.toString();
+  }
+  if (type === 2) {
+    value = pvpv!.value_float.toString();
+  }
+  if (type === 3) {
+    const listValue = productVariationPropertyListValues.find(
+      (lv) =>
+        lv.product_variation_property_id ===
+          pvpv!.product_variation_property_id &&
+        lv.id === pvpv!.product_variation_property_list_value_id
+    );
+    value = listValue!.title;
+  }
+  return value;
 };

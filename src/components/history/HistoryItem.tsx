@@ -1,5 +1,5 @@
 import React from "react";
-import { OrderInfo } from "../../types/redux-types";
+import { OrderInfo } from "../../types/shop-store-types";
 import classes from "./HistoryItem.module.css";
 
 type HistoryItemProps = {

@@ -1,7 +1,7 @@
 import React, { ChangeEvent, ChangeEventHandler, useState } from "react";
 import { useDispatch } from "react-redux";
 import classes from "./SearchBar.module.css";
-import { Action, ActionType } from '../../types/redux-types';
+import { Action, ActionType } from '../../types/shop-store-types';
 
 
 const SearchBar: React.FC = () => {

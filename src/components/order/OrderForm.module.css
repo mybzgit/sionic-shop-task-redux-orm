@@ -1,0 +1,28 @@
+.error {
+  color: var(--accent-pink);
+}
+.date_time {
+  display: flex;
+  column-gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  row-gap: 0.5rem;
+}
+form input {
+  height: 2rem;
+  border: 1px solid var(--secondary-back-color);
+  border-radius: 2rem;
+  padding: 0 1rem;
+  width: 15rem;
+}
+form input:focus {
+  outline: none;
+}
+form label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}

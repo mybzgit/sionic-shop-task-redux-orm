@@ -13,7 +13,7 @@ import {
   ProductVariationPropertyListValueType,
   ProductVariationPropertyValueType,
 } from "../../types/Entities";
-import { getPropertyValueByType } from "../../types/redux-types";
+import { getPropertyValueByType } from "../../types/Entities";
 import classes from "./ProductVariationsItem.module.css";
 
 type ProductVariationsItemProps = {

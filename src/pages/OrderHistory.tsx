@@ -6,17 +6,23 @@ import { RootState } from "../redux-store/redux-orm-store";
 import classes from "./OrderHistory.module.css";
 
 const OrderHistory: React.FC = () => {
-
-  const orderHistoryList = useSelector((state: RootState) => state.shop.ordersList);
+  const orderHistoryList = useSelector(
+    (state: RootState) => state.shop.ordersList
+  );
 
   return (
     <Fragment>
       <Title text="История заказов" />
       <br />
-      {orderHistoryList.length === 0 && <span>Вы не сделали ни одного заказа</span>}
-      {orderHistoryList.length > 0 && orderHistoryList.map(oh => {
-        return <HistoryItem key={oh.id} orderInfo={oh} />
-      })}
+      <div className={classes.history_list}>
+        {orderHistoryList.length === 0 && (
+          <span>Вы не сделали ни одного заказа</span>
+        )}
+        {orderHistoryList.length > 0 &&
+          orderHistoryList.map((oh) => {
+            return <HistoryItem key={oh.id} orderInfo={oh} />;
+          })}
+      </div>
     </Fragment>
   );
 };

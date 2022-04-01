@@ -1,5 +1,5 @@
 import React from "react";
-import { CartItemInfo } from "../../types/redux-types";
+import { CartItemInfo } from "../../types/shop-store-types";
 import CartItem from "./CartItem";
 import classes from "./CartItemList.module.css";
 

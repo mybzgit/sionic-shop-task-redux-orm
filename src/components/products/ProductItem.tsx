@@ -6,7 +6,7 @@ import {
   ProductImageType,
   ProductVariationType,
 } from "../../types/Entities";
-import { Action, ActionType } from "../../types/redux-types";
+import { Action, ActionType } from "../../types/shop-store-types";
 import ProductImage from "./ProductImage";
 import classes from "./ProductItem.module.css";
 import ProductVariationsItem from "./ProductVariationsItem";

@@ -1,7 +1,8 @@
-import React, { ChangeEvent, ChangeEventHandler, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { ChangeEvent, ChangeEventHandler, useState } from "react";
+import { useDispatch } from "react-redux";
 import { session } from "../../redux-store/redux-orm-store";
 import {
+  getPropertyValueByType,
   ProductImageType,
   ProductVariationPropertyListValueType,
   ProductVariationPropertyType,
@@ -11,8 +12,7 @@ import {
   Action,
   ActionType,
   CartItemInfo,
-  getPropertyValueByType,
-} from "../../types/redux-types";
+} from "../../types/shop-store-types";
 import ProductImage from "../products/ProductImage";
 import classes from "./CartItem.module.css";
 
