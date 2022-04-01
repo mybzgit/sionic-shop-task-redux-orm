@@ -1,5 +1,5 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { ChangeEvent, ChangeEventHandler, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { session } from "../../redux-store/redux-orm-store";
 import {
   ProductImageType,
@@ -47,7 +47,6 @@ const CartItem: React.FC<CartItemProps> = ({ cartItemData }) => {
   const dispatch = useDispatch();
 
   const onRemoveItemHandler = () => {
-    console.log(cartItemData);
     const action: Action = {
       type: ActionType.REMOVE_FROM_CART,
       cartItemPayload: { ...cartItemData },
@@ -55,10 +54,36 @@ const CartItem: React.FC<CartItemProps> = ({ cartItemData }) => {
     dispatch(action);
   };
 
+  const onItemCountChanged: ChangeEventHandler<HTMLInputElement> = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    setCount(+event.target.value);
+    let action: Action = {
+      type: ActionType.CHANGE_ITEM_COUNT,
+      cartItemPayload: { ...cartItemData },
+    };
+    console.log(event.target.value, cartItemData.count);
+    if (+event.target.value > cartItemData.count) {
+      action.type = ActionType.ADD_TO_CART;
+    }
+    dispatch(action);
+  };
+
+  const [count, setCount] = useState(cartItemData.count);
+
   return (
     <div className={classes.item}>
       <ProductImage product_images={productImages} />
       <span className={classes.product_title}>{productName}</span>
+
+      <input
+        id={cartItemData.product_id + "_" + cartItemData.product_variation_id}
+        type="number"
+        min="1"
+        max="5"
+        value={count}
+        onChange={onItemCountChanged}
+      ></input>
 
       {productVariationProperties.length > 0 &&
         productVariationPropertyValues.length > 0 &&
@@ -77,9 +102,10 @@ const CartItem: React.FC<CartItemProps> = ({ cartItemData }) => {
           );
         })}
 
-      <span className={classes.current_price}>
-        {cartItemData.price} &#8381;
+      <span className={classes.total_price}>
+        {cartItemData.price * cartItemData.count} &#8381; 
       </span>
+      <span className={classes.price}>({cartItemData.count}x{cartItemData.price} &#8381;)</span>
       <button type="button" onClick={onRemoveItemHandler}>
         <i className="bi bi-trash"></i>
       </button>

@@ -6,7 +6,7 @@ const initialState: State = {
   selectedCategory: -1,
   total: 0,
   cart: [],
-  ordersList: []
+  ordersList: [],
 };
 
 const shopReducer: Reducer<State, Action> = (
@@ -26,20 +26,73 @@ const shopReducer: Reducer<State, Action> = (
     };
   }
   if (action.type === ActionType.ADD_TO_CART) {
+    let itemToAdd = action.cartItemPayload!;
+    let previousState = [...state.cart];
+    let duplicate = previousState.find(
+      (i) =>
+        i.product_id == itemToAdd.product_id &&
+        i.product_variation_id == itemToAdd.product_variation_id
+    );
+    const other = state.cart.filter(
+      (i) =>
+        i.product_id !== itemToAdd.product_id ||
+        i.product_variation_id !== itemToAdd.product_variation_id
+    );
+    if (duplicate) {
+      duplicate.count = duplicate.count + 1;
+      return {
+        ...state,
+        total: state.total + itemToAdd.price,
+        cart: previousState,
+      };
+    }
     return {
       ...state,
-      total: state.total + action.cartItemPayload!.price,
-      cart: [...state.cart, action.cartItemPayload!],
+      total: state.total + itemToAdd.price,
+      cart: [...previousState, itemToAdd]
     };
+  }
+  if (action.type === ActionType.CHANGE_ITEM_COUNT) {
+    let itemToRemove = action.cartItemPayload!;
+    let previousState = [...state.cart];
+    let duplicate = previousState.find(
+      (i) =>
+        i.product_id == itemToRemove.product_id &&
+        i.product_variation_id == itemToRemove.product_variation_id
+    );
+    if (duplicate!.count > 1) {
+      duplicate!.count = duplicate!.count - 1;
+      return {
+        ...state,
+        total: state.total - itemToRemove.price,
+        cart: previousState,
+      };
+    } else {
+      return {
+        ...state,
+        total: state.total - itemToRemove.price,
+        cart: previousState.filter(
+          (i) =>
+            i.product_id !== itemToRemove.product_id ||
+            i.product_variation_id !== itemToRemove.product_variation_id
+        ),
+      };
+    }
   }
   if (action.type === ActionType.REMOVE_FROM_CART) {
     const itemToRemove = action.cartItemPayload!;
+    const duplicate = state.cart.find(
+      (i) =>
+        i.product_id == itemToRemove.product_id &&
+        i.product_variation_id == itemToRemove.product_variation_id
+    );
     return {
       ...state,
-      total: state.total - itemToRemove.price,
+      total: state.total - duplicate!.price * duplicate!.count,
       cart: state.cart.filter(
         (i) =>
-          i.product_id !== itemToRemove.product_id || i.product_variation_id !== itemToRemove.product_variation_id
+          i.product_id !== itemToRemove.product_id ||
+          i.product_variation_id !== itemToRemove.product_variation_id
       ),
     };
   }
@@ -48,7 +101,10 @@ const shopReducer: Reducer<State, Action> = (
       ...state,
       cart: [],
       total: 0,
-      ordersList: [...state.ordersList, { ...action.orderInfoPayload!, cartInfo: [...state.cart] } ]
+      ordersList: [
+        ...state.ordersList,
+        { ...action.orderInfoPayload!, cartInfo: [...state.cart] },
+      ],
     };
   }
 

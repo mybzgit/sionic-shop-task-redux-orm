@@ -8,7 +8,10 @@ import SearchBar from "./SearchBar";
 const Header: React.FC = () => {
   const location = useLocation();
 
-  const cartInfo = useSelector((state: RootState) => state.shop.cart.length);
+  const cartInfo = useSelector((state: RootState) => state.shop.cart);
+  const itemsCount = cartInfo.reduce((total, item) => {
+    return total + item.count;
+  }, 0);
 
   return (
     <div className={classes.header}>
@@ -27,7 +30,7 @@ const Header: React.FC = () => {
         <Link to="/cart">
           <i className="bi bi-cart2"></i>
         </Link>
-        {cartInfo > 0 && <span>{cartInfo}</span>}
+        {itemsCount > 0 && <span>{itemsCount}</span>}
       </div>
       <div className={classes.profile}>
         <Link to="/history">

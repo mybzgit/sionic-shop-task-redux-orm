@@ -46,7 +46,7 @@ const ProductItemList: React.FC<ProductItemListProps> = ({
 
     axios
       .get<ProductType[]>(
-        `https://test2.sionic.ru/api/Products?${categoryQuery}&range=[0,3]`
+        `https://test2.sionic.ru/api/Products?${categoryQuery}&range=[0,0]`
       )
       .then((products) => {
         if (products.data.length) {

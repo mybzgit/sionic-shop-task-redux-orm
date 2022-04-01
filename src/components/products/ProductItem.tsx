@@ -30,7 +30,6 @@ const ProductItem: React.FC<ProductItemProps> = ({
   };
 
   const onAddToCartHandler = () => {
-
     const price = (session.ProductVariation.withId(currentProductVariationId) as any).price;
 
     const action: Action = {
@@ -39,7 +38,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
         product_id: product.id,
         product_variation_id: currentProductVariationId,
         price: price,
-        count: 1,
+        count: 1
       },
     };
     dispatch(action);

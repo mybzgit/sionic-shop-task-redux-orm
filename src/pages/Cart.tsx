@@ -13,13 +13,7 @@ const Cart: React.FC = () => {
   };
 
   const cartData = useSelector((state: RootState) => state.shop.cart);
-  let totalPrice = 0;
-
-  if (cartData.length > 0) {
-    totalPrice = cartData.reduce((total, item) => {
-      return total + item.price * item.count;
-    }, 0);
-  }
+  const totalPrice = useSelector((state: RootState) => state.shop.total);
 
   return (
     <Fragment>
