@@ -10,17 +10,19 @@
   height: 70px;
   border: 1px solid lightgray;
 }
-.price_info {
-  display: flex;
-  flex-direction: column;
-}
-.previous_price {
-  color: #8d8d8e;
-  text-decoration: line-through;
-}
+
 .current_price {
   font-weight: 600;
   color: var(--primary-dark);
+  width: 7rem;
+  font-size: 1.2rem;
+}
+.product_title {
+  width: 20rem;
+}
+.product_variation {
+  font-size: 0.9rem;
+  text-align: center;
 }
 .item button {
   border: none;

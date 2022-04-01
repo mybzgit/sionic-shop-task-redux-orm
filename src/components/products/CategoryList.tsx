@@ -7,7 +7,11 @@ import React, {
 } from "react";
 import { useDispatch } from "react-redux";
 import { passDataToSession, session } from "../../redux-store/redux-orm-store";
-import { CategoryType } from "../../types/Entities";
+import {
+  CategoryType,
+  ProductVariationPropertyListValueType,
+  ProductVariationPropertyType,
+} from "../../types/Entities";
 import { Action, ActionType } from "../../types/redux-types";
 import classes from "./CategoryList.module.css";
 
@@ -31,6 +35,42 @@ const CategoryList: React.FC = () => {
           return c as CategoryType;
         });
       setCategories([...categoriesFromSession]);
+    }
+  }, []);
+
+  useEffect(() => {
+
+    if (session.ProductVariationProperty.count() === 0 && session.ProductVariationPropertyListValue.count() === 0) {
+
+    const productVariationPropertiesRequest = axios.get(`https://test2.sionic.ru/api/ProductVariationProperties`);
+    const productVariationPropertyListValueTypiesRequest = axios.get(`https://test2.sionic.ru/api/ProductVariationPropertyListValues`);
+
+    axios
+      .all([
+        productVariationPropertiesRequest,
+        productVariationPropertyListValueTypiesRequest,
+      ])
+      .then(
+        axios.spread((...responses) => {
+          const productVariationProperties = responses[0]
+            .data as ProductVariationPropertyType[];
+          const productVariationPropertyListValueTypies = responses[1]
+            .data as ProductVariationPropertyListValueType[];
+          if (productVariationProperties.length) {
+            passDataToSession(
+              [...productVariationProperties],
+              "ProductVariationPropertyType"
+            );
+          }
+
+          if (productVariationPropertyListValueTypies.length) {
+            passDataToSession(
+              [...productVariationPropertyListValueTypies],
+              "ProductVariationPropertyListValueType"
+            );
+          }
+        })
+      );
     }
   }, []);
 

@@ -54,39 +54,41 @@ const ProductItemList: React.FC<ProductItemListProps> = ({
           passDataToSession([...products.data], "ProductType");
           collectProductIds([...products.data]);
           setLoading(false);
-          //    console.log((session.Category.withId(categoryId) as any).products?.count());
-          //   console.log((session.Category.withId(categoryId) as any).products.all().toRefArray());
         }
       });
   }, [categoryId]);
 
   useEffect(() => {
-    const productIdQuery = `filter={"product_id":[${productIds}]}`;
+    if (productIds != "") {
+      const productIdQuery = `filter={"product_id":[${productIds}]}`;
 
-    const productImagesRequest = axios.get(
-      `https://test2.sionic.ru/api/ProductImages?${productIdQuery}`
-    );
-    const productVariationsRequest = axios.get(
-      `https://test2.sionic.ru/api/ProductVariations?${productIdQuery}`
-    );
+      const productImagesRequest = axios.get(
+        `https://test2.sionic.ru/api/ProductImages?${productIdQuery}`
+      );
+      const productVariationsRequest = axios.get(
+        `https://test2.sionic.ru/api/ProductVariations?${productIdQuery}`
+      );
 
-    axios.all([productImagesRequest, productVariationsRequest]).then(
-      axios.spread((...responses) => {
-        const images = responses[0].data as ProductImageType[];
-        const variations = responses[1].data as ProductVariationType[];
-        if (images.length) {
-          passDataToSession([...images], "ProductImageType");
-          setProductImages([...images]);
-        }
-        if (variations.length) {
-          passDataToSession([...variations], "ProductVariationType");
-          setProductVariations([...variations]);
-        }
-      })
-    );
+      axios.all([productImagesRequest, productVariationsRequest]).then(
+        axios.spread((...responses) => {
+          const images = responses[0].data as ProductImageType[];
+          const variations = responses[1].data as ProductVariationType[];
+          if (images.length) {
+            passDataToSession([...images], "ProductImageType");
+            setProductImages([...images]);
+          }
+          if (variations.length) {
+            passDataToSession([...variations], "ProductVariationType");
+            setProductVariations([...variations]);
+          }
+        })
+      );
+    }
   }, [categoryId, productIds]);
 
-  const filteredProducts = productsList.filter((p) => p.name.indexOf(searchValue) !== -1);
+  const filteredProducts = productsList.filter(
+    (p) => p.name.indexOf(searchValue) !== -1
+  );
 
   return (
     <div className={classes.product_list}>
@@ -96,21 +98,18 @@ const ProductItemList: React.FC<ProductItemListProps> = ({
         productsList.length > 0 &&
         productImages.length > 0 &&
         productVariations.length > 0 &&
-        filteredProducts
-          .map((p) => {
-            return (
-              <ProductItem
-                key={p.id}
-                product={p}
-                product_images={productImages.filter(
-                  (i) => i.product_id == p.id
-                )}
-                product_variations={productVariations.filter(
-                  (v) => v.product_id == p.id
-                )}
-              />
-            );
-          })}
+        filteredProducts.map((p) => {
+          return (
+            <ProductItem
+              key={p.id}
+              product={p}
+              product_images={productImages.filter((i) => i.product_id == p.id)}
+              product_variations={productVariations.filter(
+                (v) => v.product_id == p.id
+              )}
+            />
+          );
+        })}
     </div>
   );
 };

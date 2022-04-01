@@ -1,7 +1,9 @@
 import React, { Fragment } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CartItemList from "../components/cart/CartItemList";
 import Title from "../components/navigation/Title";
+import { RootState } from "../redux-store/redux-orm-store";
 import classes from "./Cart.module.css";
 
 const Cart: React.FC = () => {
@@ -10,25 +12,37 @@ const Cart: React.FC = () => {
     navigate("/order");
   };
 
+  const cartData = useSelector((state: RootState) => state.shop.cart);
+  let totalPrice = 0;
+
+  if (cartData.length > 0) {
+    totalPrice = cartData.reduce((total, item) => {
+      return total + item.price * item.count;
+    }, 0);
+  }
+
   return (
     <Fragment>
       <Title text="Корзина" />
       <br />
-      <div className={classes.container}>
-        <div className={classes.list_header}>
-          <span>Name of order</span>
-          <div className={classes.info}>
-            <span>Стоимость корзины:</span>
-            <span className={classes.total}>
-              <b>1 123 123 &#8381;</b>
-            </span>
+      {cartData.length === 0 && <span>Вы не выбрали ни одного товара</span>}
+      {cartData.length > 0 && (
+        <div className={classes.container}>
+          <div className={classes.list_header}>
+            <span>Name of order</span>
+            <div className={classes.info}>
+              <span>Стоимость корзины:</span>
+              <span className={classes.total}>
+                <b>{totalPrice} &#8381;</b>
+              </span>
+            </div>
+            <button type="button" onClick={onCreateOrder}>
+              Оформить
+            </button>
           </div>
-          <button type="button" onClick={onCreateOrder}>
-            Оформить
-          </button>
+          <CartItemList cartData={cartData} />
         </div>
-        <CartItemList />
-      </div>
+      )}
     </Fragment>
   );
 };

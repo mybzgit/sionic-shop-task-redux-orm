@@ -18,7 +18,7 @@ import {
   ProductVariationPropertyListValueType,
 } from "../types/Entities";
 
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, compose } from "redux";
 import { ORM, createReducer, createSelector } from "redux-orm";
 
 import shopReducer from "./shop-reducer";
@@ -54,32 +54,49 @@ const rootReducer = combineReducers({
   shop: shopReducer,
 });
 
-export const store = createStore(rootReducer);
+export const composeEnhancers =
+  (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+
+export const store = createStore(rootReducer, composeEnhancers());
 export type RootState = ReturnType<typeof store.getState>;
 const dbState = store.getState().orm;
 export const session = orm.session(dbState);
 
 export const passDataToSession = (array: any[], type: string): void => {
   array.map((item) => {
-    if (type === "CategoryType")
-      session.Category.create({ ...item } as CategoryType);
+    if (type === "CategoryType") {
+      let newItem = { ...item } as CategoryType;
+      if (!session.Category.idExists(newItem)) session.Category.create(newItem);
+    }
     if (type === "ProductType")
-      session.Product.create({ ...item } as ProductType);
+    {
+      let newItem = { ...item } as ProductType;
+      if (!session.Product.idExists(newItem)) session.Product.create(newItem);
+    }
     if (type === "ProductImageType")
-      session.ProductImage.create({ ...item } as ProductImageType);
+    {
+      let newItem = { ...item } as ProductImageType;
+      if (!session.ProductImage.idExists(newItem)) session.ProductImage.create(newItem);
+    }
     if (type === "ProductVariationType")
-      session.ProductVariation.create({ ...item } as ProductVariationType);
+    {
+      let newItem = { ...item } as ProductVariationType;
+      if (!session.ProductVariation.idExists(newItem)) session.ProductVariation.create(newItem);
+    }
     if (type === "ProductVariationPropertyType")
-      session.ProductVariationProperty.create({
-        ...item,
-      } as ProductVariationPropertyType);
+    {
+      let newItem = { ...item } as ProductVariationPropertyType;
+      if (!session.ProductVariationProperty.idExists(newItem)) session.ProductVariationProperty.create(newItem);
+    }
     if (type === "ProductVariationPropertyValueType")
-      session.ProductVariationPropertyValue.create({
-        ...item,
-      } as ProductVariationPropertyValueType);
+    {
+      let newItem = { ...item } as ProductVariationPropertyValueType;
+      if (!session.ProductVariationPropertyValue.idExists(newItem)) session.ProductVariationPropertyValue.create(newItem);
+    }
     if (type === "ProductVariationPropertyListValueType")
-      session.ProductVariationPropertyListValue.create({
-        ...item,
-      } as ProductVariationPropertyListValueType);
+    {
+      let newItem = { ...item } as ProductVariationPropertyListValueType;
+      if (!session.ProductVariationPropertyListValue.idExists(newItem)) session.ProductVariationPropertyListValue.create(newItem);
+    }
   });
 };

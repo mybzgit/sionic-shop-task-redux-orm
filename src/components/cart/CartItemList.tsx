@@ -1,13 +1,19 @@
 import React from "react";
+import { CartItemInfo } from "../../types/redux-types";
 import CartItem from "./CartItem";
 import classes from "./CartItemList.module.css";
 
-const CartItemList: React.FC = () => {
+type CartItemListProps = {
+  cartData: CartItemInfo[];
+}
+
+const CartItemList: React.FC<CartItemListProps> = ({cartData}) => {
   return (
     <div className={classes.cart_list}>
-      <CartItem />
-      <CartItem />
-      <CartItem />
+      {cartData.length > 0 && cartData.map(i => {
+        const key = i.product_id.toString() + i.product_variation_id.toString();
+        return <CartItem key={key} cartItemData={i} />
+      })}
     </div>
   );
 };

@@ -1,13 +1,18 @@
 import React from "react";
+import { OrderInfo } from "../../types/redux-types";
 import classes from "./HistoryItem.module.css";
 
-const HistoryItem: React.FC = () => {
+type HistoryItemProps = {
+  orderInfo: OrderInfo;
+};
+
+const HistoryItem: React.FC<HistoryItemProps> = ({ orderInfo }) => {
   return (
     <div className={classes.history_item}>
       <div className={classes.item_header}>
         <img alt="order" />
-        <span className={classes.order_name}>OrderName</span>
-        <span className={classes.order_date}>25.03.2022</span>
+        <span className={classes.order_name}>Заказ №{orderInfo.id}</span>
+        <span className={classes.order_date}>{orderInfo.date}</span>
         <a href="">Подробнее</a>
       </div>
       <div className={classes.item_row}>
@@ -17,21 +22,21 @@ const HistoryItem: React.FC = () => {
         </div>
         <div className={classes.info_block}>
           <span>Номер заказа</span>
-          <span>#123-321</span>
+          <span>{orderInfo.id}</span>
         </div>
       </div>
       <div className={classes.item_row}>
         <div className={classes.info_block}>
           <span>Кол-во товаров</span>
-          <span>4 шт.</span>
+          <span>{orderInfo.cartInfo.length}</span>
         </div>
         <div className={classes.info_block}>
           <span>Стоимость заказа</span>
-          <span>250 000 &#8381;</span>
+          <span>{orderInfo.total}</span>
         </div>
         <div className={classes.info_block}>
           <span>Адрес доставки</span>
-          <span>Адрес</span>
+          <span>{orderInfo.address}</span>
         </div>
       </div>
     </div>

@@ -52,3 +52,6 @@ form {
   color: var(--accent-blue);
   border: 1px solid var(--accent-blue);
 }
+.error {
+  color: var(--accent-pink);
+}

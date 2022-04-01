@@ -7,8 +7,10 @@ type ProductImageProps = {
 
 const ProductImage: React.FC<ProductImageProps> = ({ product_images = [] }) => {
   const imageLocation = "https://test2.sionic.ru/";
+
   const [displayedImageIndex, setDisplayedImageIndex] = useState(
-    product_images.length - 1
+    product_images.length > 0 ?
+    product_images.length - 1 : 0
   );
 
   const onImageClick = () => {

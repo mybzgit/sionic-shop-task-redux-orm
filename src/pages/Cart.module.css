@@ -1,7 +1,6 @@
 .container {
   border: 1px solid var(--secondary-border-color);
   border-radius: 1rem;
-  width: 50%;
 }
 .list_header {
   height: 4rem;
