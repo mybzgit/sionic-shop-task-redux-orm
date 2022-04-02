@@ -15,7 +15,7 @@ import {
 import { Action, ActionType } from "../../types/shop-store-types";
 import classes from "./CategoryList.module.css";
 
-const CategoryList: React.FC = () => {
+const CategoryList: React.FC = React.memo(() => {
   const [categories, setCategories] = useState<CategoryType[]>([]);
 
   useEffect(() => {
@@ -39,38 +39,42 @@ const CategoryList: React.FC = () => {
   }, []);
 
   useEffect(() => {
-
-    if (session.ProductVariationProperty.count() === 0 && session.ProductVariationPropertyListValue.count() === 0) {
-
-    const productVariationPropertiesRequest = axios.get(`https://test2.sionic.ru/api/ProductVariationProperties`);
-    const productVariationPropertyListValueTypiesRequest = axios.get(`https://test2.sionic.ru/api/ProductVariationPropertyListValues`);
-
-    axios
-      .all([
-        productVariationPropertiesRequest,
-        productVariationPropertyListValueTypiesRequest,
-      ])
-      .then(
-        axios.spread((...responses) => {
-          const productVariationProperties = responses[0]
-            .data as ProductVariationPropertyType[];
-          const productVariationPropertyListValueTypies = responses[1]
-            .data as ProductVariationPropertyListValueType[];
-          if (productVariationProperties.length) {
-            passDataToSession(
-              [...productVariationProperties],
-              "ProductVariationPropertyType"
-            );
-          }
-
-          if (productVariationPropertyListValueTypies.length) {
-            passDataToSession(
-              [...productVariationPropertyListValueTypies],
-              "ProductVariationPropertyListValueType"
-            );
-          }
-        })
+    if (
+      session.ProductVariationProperty.count() === 0 &&
+      session.ProductVariationPropertyListValue.count() === 0
+    ) {
+      const productVariationPropertiesRequest = axios.get(
+        `https://test2.sionic.ru/api/ProductVariationProperties`
       );
+      const productVariationPropertyListValueTypiesRequest = axios.get(
+        `https://test2.sionic.ru/api/ProductVariationPropertyListValues`
+      );
+
+      axios
+        .all([
+          productVariationPropertiesRequest,
+          productVariationPropertyListValueTypiesRequest,
+        ])
+        .then(
+          axios.spread((...responses) => {
+            const productVariationProperties = responses[0]
+              .data as ProductVariationPropertyType[];
+            const productVariationPropertyListValueTypies = responses[1]
+              .data as ProductVariationPropertyListValueType[];
+            if (productVariationProperties.length) {
+              passDataToSession(
+                [...productVariationProperties],
+                "ProductVariationPropertyType"
+              );
+            }
+            if (productVariationPropertyListValueTypies.length) {
+              passDataToSession(
+                [...productVariationPropertyListValueTypies],
+                "ProductVariationPropertyListValueType"
+              );
+            }
+          })
+        );
     }
   }, []);
 
@@ -104,6 +108,6 @@ const CategoryList: React.FC = () => {
       )}
     </div>
   );
-};
+});
 
 export default CategoryList;

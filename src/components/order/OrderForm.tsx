@@ -2,6 +2,7 @@ import React, {
   FormEvent,
   FormEventHandler,
   Fragment,
+  useCallback,
   useRef,
   useState,
 } from "react";
@@ -11,7 +12,7 @@ import { RootState } from "../../redux-store/redux-orm-store";
 import { Action, ActionType } from "../../types/shop-store-types";
 import classes from './OrderForm.module.css';
 
-const OrderForm: React.FC<{total: number}> = ({ total }) => {
+const OrderForm: React.FC<{total: number}> = React.memo(({ total }) => {
   const dateRef = useRef<HTMLInputElement>(null);
   const timeRef = useRef<HTMLInputElement>(null);
   const addressRef = useRef<HTMLInputElement>(null);
@@ -24,7 +25,7 @@ const OrderForm: React.FC<{total: number}> = ({ total }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onSubmitForm: FormEventHandler<HTMLFormElement> = (
+  const onSubmitForm: FormEventHandler<HTMLFormElement> = useCallback((
     event: FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
@@ -54,7 +55,7 @@ const OrderForm: React.FC<{total: number}> = ({ total }) => {
     } else {
       setError("Заполните все поля формы");
     }
-  };
+  }, []);
 
   return (
     <Fragment>
@@ -91,6 +92,6 @@ const OrderForm: React.FC<{total: number}> = ({ total }) => {
       </form>
     </Fragment>
   );
-};
+});
 
 export default OrderForm;

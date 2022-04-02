@@ -1,9 +1,8 @@
-import React, { ChangeEvent, ChangeEventHandler, useState } from "react";
+import React, { ChangeEvent, ChangeEventHandler, useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { session } from "../../redux-store/redux-orm-store";
 import {
   getPropertyValueByType,
-  ProductImageType,
   ProductVariationPropertyListValueType,
   ProductVariationPropertyType,
   ProductVariationPropertyValueType,
@@ -20,7 +19,7 @@ type CartItemProps = {
   cartItemData: CartItemInfo;
 };
 
-const CartItem: React.FC<CartItemProps> = ({ cartItemData }) => {
+const CartItem: React.FC<CartItemProps> = React.memo(({ cartItemData }) => {
   const productName = (session.Product.withId(cartItemData.product_id) as any)
     .name;
 
@@ -38,23 +37,18 @@ const CartItem: React.FC<CartItemProps> = ({ cartItemData }) => {
   const productVariationPropertyListValues: ProductVariationPropertyListValueType[] =
     session.ProductVariationPropertyListValue.all().toRefArray() as ProductVariationPropertyListValueType[];
 
-  const productImages = (
-    session.Product.withId(cartItemData.product_id) as any
-  ).images
-    .all()
-    .toRefArray() as ProductImageType[];
 
   const dispatch = useDispatch();
 
-  const onRemoveItemHandler = () => {
+  const onRemoveItemHandler = useCallback(() => {
     const action: Action = {
       type: ActionType.REMOVE_FROM_CART,
       cartItemPayload: { ...cartItemData },
     };
     dispatch(action);
-  };
+  }, [cartItemData.product_id, cartItemData.product_variation_id]);
 
-  const onItemCountChanged: ChangeEventHandler<HTMLInputElement> = (
+  const onItemCountChanged: ChangeEventHandler<HTMLInputElement> = useCallback((
     event: ChangeEvent<HTMLInputElement>
   ) => {
     setCount(+event.target.value);
@@ -62,18 +56,17 @@ const CartItem: React.FC<CartItemProps> = ({ cartItemData }) => {
       type: ActionType.CHANGE_ITEM_COUNT,
       cartItemPayload: { ...cartItemData },
     };
-    console.log(event.target.value, cartItemData.count);
     if (+event.target.value > cartItemData.count) {
       action.type = ActionType.ADD_TO_CART;
     }
     dispatch(action);
-  };
+  }, [cartItemData.product_id, cartItemData.product_variation_id]);
 
   const [count, setCount] = useState(cartItemData.count);
 
   return (
     <div className={classes.item}>
-      <ProductImage product_images={productImages} />
+      <ProductImage productId={cartItemData.product_id} />
       <span className={classes.product_title}>{productName}</span>
 
       <input
@@ -111,6 +104,6 @@ const CartItem: React.FC<CartItemProps> = ({ cartItemData }) => {
       </button>
     </div>
   );
-};
+});
 
 export default CartItem;

@@ -66,37 +66,37 @@ export const passDataToSession = (array: any[], type: string): void => {
   array.map((item) => {
     if (type === "CategoryType") {
       let newItem = { ...item } as CategoryType;
-      if (!session.Category.idExists(newItem)) session.Category.create(newItem);
+      if (!session.Category.idExists(newItem.id)) session.Category.create(newItem);
     }
     if (type === "ProductType")
     {
       let newItem = { ...item } as ProductType;
-      if (!session.Product.idExists(newItem)) session.Product.create(newItem);
+      if (!session.Product.idExists(newItem.id)) session.Product.create(newItem);
     }
     if (type === "ProductImageType")
     {
       let newItem = { ...item } as ProductImageType;
-      if (!session.ProductImage.idExists(newItem)) session.ProductImage.create(newItem);
+      if (!session.ProductImage.idExists(newItem.id)) session.ProductImage.create(newItem);
     }
     if (type === "ProductVariationType")
     {
       let newItem = { ...item } as ProductVariationType;
-      if (!session.ProductVariation.idExists(newItem)) session.ProductVariation.create(newItem);
+      if (!session.ProductVariation.idExists(newItem.id)) session.ProductVariation.create(newItem);
     }
     if (type === "ProductVariationPropertyType")
     {
       let newItem = { ...item } as ProductVariationPropertyType;
-      if (!session.ProductVariationProperty.idExists(newItem)) session.ProductVariationProperty.create(newItem);
+      if (!session.ProductVariationProperty.idExists(newItem.id)) session.ProductVariationProperty.create(newItem);
     }
     if (type === "ProductVariationPropertyValueType")
     {
       let newItem = { ...item } as ProductVariationPropertyValueType;
-      if (!session.ProductVariationPropertyValue.idExists(newItem)) session.ProductVariationPropertyValue.create(newItem);
+      if (!session.ProductVariationPropertyValue.idExists(newItem.id)) session.ProductVariationPropertyValue.create(newItem);
     }
     if (type === "ProductVariationPropertyListValueType")
     {
       let newItem = { ...item } as ProductVariationPropertyListValueType;
-      if (!session.ProductVariationPropertyListValue.idExists(newItem)) session.ProductVariationPropertyListValue.create(newItem);
+      if (!session.ProductVariationPropertyListValue.idExists(newItem.id)) session.ProductVariationPropertyListValue.create(newItem);
     }
   });
 };

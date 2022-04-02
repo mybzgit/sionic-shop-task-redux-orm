@@ -7,7 +7,7 @@ type CartItemListProps = {
   cartData: CartItemInfo[];
 }
 
-const CartItemList: React.FC<CartItemListProps> = ({cartData}) => {
+const CartItemList: React.FC<CartItemListProps> = React.memo(({cartData}) => {
   return (
     <div className={classes.cart_list}>
       {cartData.length > 0 && cartData.map(i => {
@@ -16,6 +16,6 @@ const CartItemList: React.FC<CartItemListProps> = ({cartData}) => {
       })}
     </div>
   );
-};
+});
 
 export default CartItemList;

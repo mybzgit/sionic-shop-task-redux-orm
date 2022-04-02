@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ChangeEventHandler, useState } from "react";
+import React, { ChangeEvent, ChangeEventHandler, useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import classes from "./SearchBar.module.css";
 import { Action, ActionType } from '../../types/shop-store-types';
@@ -9,13 +9,14 @@ const SearchBar: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const onSearch = () => {
+  const onSearch = useCallback(() => {
     const action: Action = {
       type: ActionType.SET_SEARCH_VALUE,
       searchValuePayload: searchValue
     }
     dispatch(action);
-  };
+  }, [searchValue]);
+  
   const onValueChanged: ChangeEventHandler<HTMLInputElement> = (
     e: ChangeEvent<HTMLInputElement>
   ) => {
