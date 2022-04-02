@@ -34,7 +34,7 @@ const Cart: React.FC = () => {
               Оформить
             </button>
           </div>
-          <CartItemList cartData={cartData} />
+          <CartItemList cartData={cartData} readonly={false} />
         </div>
       )}
     </Fragment>

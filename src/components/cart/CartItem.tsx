@@ -1,3 +1,4 @@
+import { read } from "fs";
 import React, { ChangeEvent, ChangeEventHandler, useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { session } from "../../redux-store/redux-orm-store";
@@ -17,9 +18,10 @@ import classes from "./CartItem.module.css";
 
 type CartItemProps = {
   cartItemData: CartItemInfo;
+  readonly: boolean;
 };
 
-const CartItem: React.FC<CartItemProps> = React.memo(({ cartItemData }) => {
+const CartItem: React.FC<CartItemProps> = React.memo(({ cartItemData, readonly }) => {
   const productName = (session.Product.withId(cartItemData.product_id) as any)
     .name;
 
@@ -69,14 +71,14 @@ const CartItem: React.FC<CartItemProps> = React.memo(({ cartItemData }) => {
       <ProductImage productId={cartItemData.product_id} />
       <span className={classes.product_title}>{productName}</span>
 
-      <input
+      {!readonly && <input
         id={cartItemData.product_id + "_" + cartItemData.product_variation_id}
         type="number"
         min="1"
         max="5"
         value={count}
         onChange={onItemCountChanged}
-      ></input>
+      ></input>}
 
       {productVariationProperties.length > 0 &&
         productVariationPropertyValues.length > 0 &&
@@ -99,9 +101,9 @@ const CartItem: React.FC<CartItemProps> = React.memo(({ cartItemData }) => {
         {cartItemData.price * cartItemData.count} &#8381; 
       </span>
       <span className={classes.price}>({cartItemData.count}x{cartItemData.price} &#8381;)</span>
-      <button type="button" onClick={onRemoveItemHandler}>
+      {!readonly && <button type="button" onClick={onRemoveItemHandler}>
         <i className="bi bi-trash"></i>
-      </button>
+      </button>}
     </div>
   );
 });

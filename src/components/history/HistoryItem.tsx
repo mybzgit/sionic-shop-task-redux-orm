@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { OrderInfo } from "../../types/shop-store-types";
+import CartItemList from "../cart/CartItemList";
 import classes from "./HistoryItem.module.css";
 
 type HistoryItemProps = {
@@ -7,13 +8,23 @@ type HistoryItemProps = {
 };
 
 const HistoryItem: React.FC<HistoryItemProps> = ({ orderInfo }) => {
+
+  const [showDetails, setShowDetails] = useState(false);
+  const itemsCount = orderInfo.cartInfo.reduce((total, item) => {
+    return total + item.count;
+  }, 0);
+  const onShowDetailsClick = () => {
+    setShowDetails(prevState => !prevState);
+  }
+
   return (
     <div className={classes.history_item}>
       <div className={classes.item_header}>
         <img alt="order" />
         <span className={classes.order_name}>Заказ №{orderInfo.id}</span>
         <span className={classes.order_date}>{orderInfo.date}</span>
-        <a href="">Подробнее</a>
+        <span onClick={onShowDetailsClick}>Подробнее</span>
+        {showDetails && <CartItemList cartData={orderInfo.cartInfo} readonly={true} />}
       </div>
       <div className={classes.item_row}>
         <div className={classes.info_block}>
@@ -28,7 +39,7 @@ const HistoryItem: React.FC<HistoryItemProps> = ({ orderInfo }) => {
       <div className={classes.item_row}>
         <div className={classes.info_block}>
           <span>Кол-во товаров</span>
-          <span>{orderInfo.cartInfo.length}</span>
+          <span>{itemsCount}</span>
         </div>
         <div className={classes.info_block}>
           <span>Стоимость заказа</span>
