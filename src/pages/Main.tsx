@@ -5,9 +5,9 @@ import classes from "./Main.module.css";
 import CategoryList from "../components/products/CategoryList";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux-store/redux-orm-store";
+import { ActionType } from "../types/shop-store-types";
 
 const Main: React.FC = () => {
-
   const searchValue = useSelector<RootState, string>(
     (state: RootState) => state.shop.searchValue
   );
@@ -16,9 +16,9 @@ const Main: React.FC = () => {
   );
 
   const dispatch = useDispatch();
-  
-  const onMoreClick = () => {
 
+  const onMoreClick = () => {
+    dispatch({ type: ActionType.CHANGE_CURRENT_RANGE });
   };
   return (
     <Fragment>
@@ -26,7 +26,7 @@ const Main: React.FC = () => {
         <Title text="Категории товаров" />
         <CategoryList />
       </div>
-      <br/>
+      <br />
       <ProductItemList
         searchValue={searchValue}
         categoryId={selectedCategory}

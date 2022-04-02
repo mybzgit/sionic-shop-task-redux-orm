@@ -7,6 +7,7 @@ const initialState: State = {
   total: 0,
   cart: [],
   ordersList: [],
+  currentRange: 8,
 };
 
 const shopReducer: Reducer<State, Action> = (
@@ -23,6 +24,7 @@ const shopReducer: Reducer<State, Action> = (
     return {
       ...state,
       selectedCategory: action.selectedCategoryPayload!,
+      currentRange: 8
     };
   }
   if (action.type === ActionType.ADD_TO_CART) {
@@ -49,7 +51,7 @@ const shopReducer: Reducer<State, Action> = (
     return {
       ...state,
       total: state.total + itemToAdd.price,
-      cart: [...previousState, itemToAdd]
+      cart: [...previousState, itemToAdd],
     };
   }
   if (action.type === ActionType.CHANGE_ITEM_COUNT) {
@@ -105,6 +107,12 @@ const shopReducer: Reducer<State, Action> = (
         ...state.ordersList,
         { ...action.orderInfoPayload!, cartInfo: [...state.cart] },
       ],
+    };
+  }
+  if (action.type === ActionType.CHANGE_CURRENT_RANGE) {
+    return {
+      ...state,
+      currentRange: state.currentRange + 8,
     };
   }
 

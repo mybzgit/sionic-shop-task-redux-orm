@@ -19,6 +19,7 @@ export type State = {
   cart: CartItemInfo[];
   total: number;
   ordersList: OrderInfo[];
+  currentRange: number;
 };
 export type Action = {
   type: ActionType;
@@ -33,5 +34,7 @@ export enum ActionType {
   ADD_TO_CART,
   CHANGE_ITEM_COUNT,
   REMOVE_FROM_CART,
-  SAVE_ORDER
+  SAVE_ORDER,
+  CHANGE_CURRENT_RANGE,
+  RESET_CURRENT_RANGE
 }
