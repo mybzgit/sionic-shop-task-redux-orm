@@ -49,6 +49,7 @@ const ProductImage: React.FC<ProductImageProps> = React.memo(
 
     return (
       <Fragment>
+        {productImages.length == 0 && <img alt="Loading images..." />}
         {productImages.length > 0 && (
           <img
             onClick={onImageClick}

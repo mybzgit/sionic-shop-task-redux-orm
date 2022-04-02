@@ -136,6 +136,11 @@ const ProductVariationsItem: React.FC<ProductVariationsItemProps> = ({
 
   return (
     <div className={classes.variations_container}>
+      {variations.length == 0 && (
+        <span className={classes.loading_message}>
+          Loading product variations...
+        </span>
+      )}
       {variations.length > 0 && (
         <Fragment>
           <label>цена от</label>

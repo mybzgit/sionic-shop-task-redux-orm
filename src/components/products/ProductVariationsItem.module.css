@@ -22,3 +22,7 @@
 .stock {
   color: var(--accent-pink);
 }
+.loading_message {
+  color: var(--primary-fore-color);
+  font-style: italic;
+}
