@@ -31,7 +31,7 @@ const ProductVariationsItem: React.FC<ProductVariationsItemProps> = ({
 
   useEffect(() => {
     const productVariations = session.ProductVariation.filter(
-      (i) => i.product_id == productId
+      (i) => i.product_id === productId
     );
     const productVariationFromSession = productVariations
       .all()
@@ -45,7 +45,7 @@ const ProductVariationsItem: React.FC<ProductVariationsItemProps> = ({
   useEffect(() => {
     if (variations.length !== 0)
       onCurrentVariationChanged(variations[currentVariationIndex].id);
-  }, [currentVariationIndex, variations]);
+  }, [currentVariationIndex, variations, onCurrentVariationChanged]);
 
   useEffect(() => {
     if (variations.length !== 0) {

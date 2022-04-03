@@ -16,7 +16,7 @@ const ProductImage: React.FC<ProductImageProps> = React.memo(
 
     useEffect(() => {
       const images = session.ProductImage.filter(
-        (i) => i.product_id == productId
+        (i) => i.product_id === productId
       );
       if (images.count() === 0) {
         axios
@@ -46,7 +46,7 @@ const ProductImage: React.FC<ProductImageProps> = React.memo(
 
     return (
       <Fragment>
-        {productImages.length == 0 && <img alt="Loading product images..." />}
+        {productImages.length === 0 && <img alt="Loading product images..." />}
         {productImages.length > 0 && (
           <img
             onClick={onImageClick}

@@ -17,9 +17,9 @@ const ProductItem: React.FC<ProductItemProps> = ({
   const [currentProductVariationId, setProductVariationId] = useState(-1);
 
   const dispatch = useDispatch();
-  const onProductVariationChanged = (variationId: number) => {
+  const onProductVariationChanged = useCallback((variationId: number) => {
     setProductVariationId(variationId);
-  };
+  }, []);
 
   const onAddToCartHandler = useCallback(() => {
     const price = (

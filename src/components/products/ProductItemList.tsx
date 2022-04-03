@@ -26,7 +26,7 @@ const ProductItemList: React.FC<ProductItemListProps> = React.memo(
     const range = useSelector((state: RootState) => state.shop.currentRange);
 
     const getProductsFromSession = (): QuerySet => {
-      return categoryId != -1
+      return categoryId !== -1
         ? session.Product.filter((p) => p.category_id === categoryId)
         : session.Product.all();
     };
@@ -44,7 +44,7 @@ const ProductItemList: React.FC<ProductItemListProps> = React.memo(
     useEffect(() => {
       setLoading(true);
       const categoryQuery =
-        categoryId == -1 ? '' : `filter={"category_id":${categoryId}}`;
+        categoryId === -1 ? '' : `filter={"category_id":${categoryId}}`;
 
       let productsFromSession = getProductsFromSession();
 
@@ -69,7 +69,7 @@ const ProductItemList: React.FC<ProductItemListProps> = React.memo(
             }
           });
       }
-    }, [categoryId, range]);
+    }, [categoryId, range, convertToProductsArray, getProductsFromSession]);
 
     const filteredProducts = productsList.filter(
       (p) => p.name.indexOf(searchValue) !== -1
