@@ -1,30 +1,30 @@
 .error {
-    color: var(--accent-pink);
+  color: var(--accent-pink);
 }
 .date_time {
-    display: flex;
-    column-gap: 0.5rem;
-    row-gap: 0.5rem;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
+  display: flex;
+  column-gap: 0.5rem;
+  row-gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 form {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    row-gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  row-gap: 0.5rem;
 }
 form input {
-    height: 2rem;
-    border: 1px solid var(--secondary-back-color);
-    border-radius: 2rem;
-    padding: 0 1rem;
-    width: 15rem;
+  height: 2rem;
+  border: 1px solid var(--secondary-back-color);
+  border-radius: 2rem;
+  padding: 0 1rem;
+  width: 15rem;
 }
 form input:focus {
-    outline: none;
+  outline: none;
 }
 form label {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
 }

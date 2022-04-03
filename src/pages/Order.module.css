@@ -1,36 +1,36 @@
 .container {
-    display: flex;
-    column-gap: 2rem;
-    row-gap: 0.5rem;
-    flex-wrap: wrap;
+  display: flex;
+  column-gap: 2rem;
+  row-gap: 0.5rem;
+  flex-wrap: wrap;
 }
 .order_details,
 .order_info {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    row-gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  row-gap: 0.5rem;
 }
 .order_info {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .order_details > span {
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
 }
 .order_button {
-    height: 3rem;
-    font-size: 1rem;
-    background-color: var(--accent-blue);
-    border: none;
-    color: var(--accent-fore-color);
-    border-radius: 2rem;
-    width: 100%;
-    margin-top: 1rem;
+  height: 3rem;
+  font-size: 1rem;
+  background-color: var(--accent-blue);
+  border: none;
+  color: var(--accent-fore-color);
+  border-radius: 2rem;
+  width: 100%;
+  margin-top: 1rem;
 }
 .order_button:hover {
-    background-color: var(--accent-fore-color);
-    color: var(--accent-blue);
-    border: 1px solid var(--accent-blue);
+  background-color: var(--accent-fore-color);
+  color: var(--accent-blue);
+  border: 1px solid var(--accent-blue);
 }

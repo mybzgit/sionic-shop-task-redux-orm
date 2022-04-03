@@ -8,51 +8,51 @@ import classes from './ProductItem.module.css';
 import ProductVariationsItem from './ProductVariationsItem';
 
 type ProductItemProps = {
-    product: ProductType;
+  product: ProductType;
 };
 
 const ProductItem: React.FC<ProductItemProps> = ({
-    product,
+  product,
 }: ProductItemProps) => {
-    const [currentProductVariationId, setProductVariationId] = useState(-1);
+  const [currentProductVariationId, setProductVariationId] = useState(-1);
 
-    const dispatch = useDispatch();
-    const onProductVariationChanged = (variationId: number) => {
-        setProductVariationId(variationId);
+  const dispatch = useDispatch();
+  const onProductVariationChanged = (variationId: number) => {
+    setProductVariationId(variationId);
+  };
+
+  const onAddToCartHandler = useCallback(() => {
+    const price = (
+      session.ProductVariation.withId(currentProductVariationId) as any
+    ).price;
+    const action: Action = {
+      type: ActionType.ADD_TO_CART,
+      cartItemPayload: {
+        product_id: product.id,
+        product_variation_id: currentProductVariationId,
+        price: price,
+        count: 1,
+      },
     };
+    dispatch(action);
+  }, [currentProductVariationId]);
 
-    const onAddToCartHandler = useCallback(() => {
-        const price = (
-            session.ProductVariation.withId(currentProductVariationId) as any
-        ).price;
-        const action: Action = {
-            type: ActionType.ADD_TO_CART,
-            cartItemPayload: {
-                product_id: product.id,
-                product_variation_id: currentProductVariationId,
-                price: price,
-                count: 1,
-            },
-        };
-        dispatch(action);
-    }, [currentProductVariationId]);
+  return (
+    <div className={classes.card}>
+      <ProductImage productId={product.id} />
 
-    return (
-        <div className={classes.card}>
-            <ProductImage productId={product.id} />
+      <span className={classes.product_title}>{product.name}</span>
 
-            <span className={classes.product_title}>{product.name}</span>
+      <ProductVariationsItem
+        productId={product.id}
+        onCurrentVariationChanged={onProductVariationChanged}
+      />
 
-            <ProductVariationsItem
-                productId={product.id}
-                onCurrentVariationChanged={onProductVariationChanged}
-            />
-
-            <button type="button" onClick={onAddToCartHandler}>
-                Добавить в корзину
-            </button>
-        </div>
-    );
+      <button type="button" onClick={onAddToCartHandler}>
+        Добавить в корзину
+      </button>
+    </div>
+  );
 };
 
 export default React.memo(ProductItem);

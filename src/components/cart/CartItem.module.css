@@ -1,67 +1,67 @@
 .item {
-    display: flex;
-    column-gap: 1rem;
-    align-items: center;
-    border-bottom: 1px solid var(--secondary-border-color);
-    padding: 0.5rem;
+  display: flex;
+  column-gap: 1rem;
+  align-items: center;
+  border-bottom: 1px solid var(--secondary-border-color);
+  padding: 0.5rem;
 }
 .item img {
-    width: 50px;
-    height: 50px;
-    border: 1px solid lightgray;
+  width: 50px;
+  height: 50px;
+  border: 1px solid lightgray;
 }
 
 .total_price {
-    font-weight: 600;
-    color: var(--primary-dark);
-    width: 7rem;
-    font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  width: 7rem;
+  font-size: 1.2rem;
 }
 .price {
-    color: var(--primary-fore-color);
-    width: 7rem;
-    font-size: 1rem;
-    text-align: end;
+  color: var(--primary-fore-color);
+  width: 7rem;
+  font-size: 1rem;
+  text-align: end;
 }
 .product_title {
-    width: 10rem;
+  width: 10rem;
 }
 
 .item button {
-    border: none;
-    background-color: transparent;
-    color: var(--secondary-border-color);
-    font-size: 1rem;
-    height: 1rem;
+  border: none;
+  background-color: transparent;
+  color: var(--secondary-border-color);
+  font-size: 1rem;
+  height: 1rem;
 }
 
 .item input {
-    height: 2rem;
-    border: 1px solid var(--secondary-border-color);
-    border-radius: 2rem;
-    padding: 0 1rem;
-    width: 3rem;
+  height: 2rem;
+  border: 1px solid var(--secondary-border-color);
+  border-radius: 2rem;
+  padding: 0 1rem;
+  width: 3rem;
 }
 .item input:focus {
-    outline: none;
+  outline: none;
 }
 
 @media (max-width: 1000px) {
-    .price {
-        display: none;
-    }
+  .price {
+    display: none;
+  }
 }
 @media (max-width: 900px) {
-    .item span:nth-of-type(3),
-    .item span:nth-of-type(4),
-    .item span:nth-of-type(5) {
-        display: none;
-    }
+  .item span:nth-of-type(3),
+  .item span:nth-of-type(4),
+  .item span:nth-of-type(5) {
+    display: none;
+  }
 }
 @media (max-width: 700px) {
-    .item span:nth-of-type(6),
-    .item span:nth-of-type(7),
-    .item span:nth-of-type(8) {
-        display: none;
-    }
+  .item span:nth-of-type(6),
+  .item span:nth-of-type(7),
+  .item span:nth-of-type(8) {
+    display: none;
+  }
 }

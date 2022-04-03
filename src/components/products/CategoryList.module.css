@@ -1,13 +1,13 @@
 .categories {
-    width: 300px;
+  width: 300px;
 }
 .categories select {
-    font-size: 1rem;
-    height: 2.5rem;
-    padding: 0.5rem;
-    border: 1px solid var(--secondary-border-color);
-    border-radius: 2rem;
+  font-size: 1rem;
+  height: 2.5rem;
+  padding: 0.5rem;
+  border: 1px solid var(--secondary-border-color);
+  border-radius: 2rem;
 }
 .categories select:focus {
-    outline: none;
+  outline: none;
 }

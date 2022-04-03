@@ -1,28 +1,28 @@
 .popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(1, 1, 1, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(1, 1, 1, 0.7);
 }
 .popup_body {
-    position: relative;
-    top: 10%;
-    margin: auto;
-    background-color: white;
-    display: flex;
-    row-gap: 0.5rem;
-    width: fit-content;
-    border-radius: 0.5rem;
-    padding: 2rem;
-    flex-direction: column;
+  position: relative;
+  top: 10%;
+  margin: auto;
+  background-color: white;
+  display: flex;
+  row-gap: 0.5rem;
+  width: fit-content;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  flex-direction: column;
 }
 .popup_header {
-    width: 100%;
-    text-align: end;
+  width: 100%;
+  text-align: end;
 }
 .popup_header button {
-    border: none;
-    background-color: transparent;
+  border: none;
+  background-color: transparent;
 }
