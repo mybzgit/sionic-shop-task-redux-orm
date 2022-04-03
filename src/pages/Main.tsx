@@ -6,6 +6,8 @@ import CategoryList from '../components/products/CategoryList';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux-store/redux-orm-store';
 import { ActionType } from '../types/shop-store-types';
+import { Route, Routes } from 'react-router-dom';
+import SelectProductPopup from '../components/products/SelectProductPopup';
 
 const Main: React.FC = () => {
     const searchValue = useSelector<RootState, string>(
@@ -36,6 +38,13 @@ const Main: React.FC = () => {
                 onClick={onMoreClick}>
                 Показать больше товаров
             </button>
+
+            <Routes>
+                <Route
+                    path="/selectproduct/:productId"
+                    element={<SelectProductPopup />}
+                />
+            </Routes>
         </Fragment>
     );
 };

@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Footer from './components/navigation/Footer';
 import Header from './components/navigation/Header';
+import SelectProductPopup from './components/products/SelectProductPopup';
 import Cart from './pages/Cart';
 import Main from './pages/Main';
 import Order from './pages/Order';
@@ -16,7 +17,12 @@ function App() {
             <div className="sidebar">Реклама и акции</div>
             <div className="main">
                 <Routes>
-                    <Route path="/" element={<Main />} />
+                    <Route path="/" element={<Main />}>
+                        <Route
+                            path="/selectproduct/:productId"
+                            element={<SelectProductPopup />}
+                        />
+                    </Route>
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/order" element={<Order />} />
                     <Route path="/history" element={<OrderHistory />} />

@@ -32,6 +32,7 @@ const ProductVariationsItem: React.FC<ProductVariationsItemProps> = ({
         const productVariations = session.ProductVariation.filter(
             (i) => i.product_id == productId
         );
+      
         if (productVariations.count() === 0) {
             axios
                 .get<ProductVariationType[]>(
@@ -42,6 +43,7 @@ const ProductVariationsItem: React.FC<ProductVariationsItemProps> = ({
                         response.data.sort((v1, v2) =>
                             v1.price > v2.price ? 1 : -1
                         );
+                        console.log(response.data);
                         setVariations([...response.data]);
                         passDataToSession(
                             [...response.data],
@@ -50,10 +52,8 @@ const ProductVariationsItem: React.FC<ProductVariationsItemProps> = ({
                     }
                 });
         } else {
-            const productVariationFromSession = productVariations
-                .all()
+            const productVariationFromSession = productVariations.all()
                 .toRefArray() as ProductVariationType[];
-
             productVariationFromSession.sort((v1, v2) =>
                 v1.price > v2.price ? 1 : -1
             );

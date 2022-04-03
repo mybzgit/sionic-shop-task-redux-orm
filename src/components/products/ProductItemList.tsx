@@ -11,6 +11,9 @@ import {
 } from '../../redux-store/redux-orm-store';
 import { useSelector } from 'react-redux';
 import { QuerySet } from 'redux-orm';
+import ProductItemMinInfo from './ProductItemMinInfo';
+import SelectProductPopup from './SelectProductPopup';
+import { Route, Routes } from 'react-router-dom';
 
 type ProductItemListProps = {
     categoryId: number;
@@ -87,7 +90,7 @@ const ProductItemList: React.FC<ProductItemListProps> = React.memo(
                 {!loading &&
                     productsList.length > 0 &&
                     filteredProducts.map((p) => {
-                        return <ProductItem key={p.id} product={p} />;
+                        return <ProductItemMinInfo key={p.id} product={p} />;
                     })}
             </div>
         );
