@@ -8,6 +8,6 @@
     border: 1px solid var(--secondary-border-color);
     border-radius: 2rem;
 }
-.categories select:focus{
+.categories select:focus {
     outline: none;
 }

@@ -1,62 +1,62 @@
-import React, { useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
-import { session } from "../../redux-store/redux-orm-store";
+import React, { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { session } from '../../redux-store/redux-orm-store';
 import {
-  ProductType,
-  ProductImageType,
-  ProductVariationType,
-} from "../../types/Entities";
-import { Action, ActionType } from "../../types/shop-store-types";
-import ProductImage from "./ProductImage";
-import classes from "./ProductItem.module.css";
-import ProductVariationsItem from "./ProductVariationsItem";
+    ProductType,
+    ProductImageType,
+    ProductVariationType,
+} from '../../types/Entities';
+import { Action, ActionType } from '../../types/shop-store-types';
+import ProductImage from './ProductImage';
+import classes from './ProductItem.module.css';
+import ProductVariationsItem from './ProductVariationsItem';
 
 type ProductItemProps = {
-  product: ProductType;
+    product: ProductType;
 };
 
 const ProductItem: React.FC<ProductItemProps> = ({
-  product
+    product,
 }: ProductItemProps) => {
-  const [currentProductVariationId, setProductVariationId] = useState(-1);
+    const [currentProductVariationId, setProductVariationId] = useState(-1);
 
-  const dispatch = useDispatch();
-  const onProductVariationChanged = (variationId: number) => {
-    setProductVariationId(variationId);
-  };
-
-  const onAddToCartHandler = useCallback(() => {
-    const price = (
-      session.ProductVariation.withId(currentProductVariationId) as any
-    ).price;
-    const action: Action = {
-      type: ActionType.ADD_TO_CART,
-      cartItemPayload: {
-        product_id: product.id,
-        product_variation_id: currentProductVariationId,
-        price: price,
-        count: 1,
-      },
+    const dispatch = useDispatch();
+    const onProductVariationChanged = (variationId: number) => {
+        setProductVariationId(variationId);
     };
-    dispatch(action);
-  }, [currentProductVariationId]);
 
-  return (
-    <div className={classes.card}>
-      <ProductImage productId={product.id} />
+    const onAddToCartHandler = useCallback(() => {
+        const price = (
+            session.ProductVariation.withId(currentProductVariationId) as any
+        ).price;
+        const action: Action = {
+            type: ActionType.ADD_TO_CART,
+            cartItemPayload: {
+                product_id: product.id,
+                product_variation_id: currentProductVariationId,
+                price: price,
+                count: 1,
+            },
+        };
+        dispatch(action);
+    }, [currentProductVariationId]);
 
-      <span className={classes.product_title}>{product.name}</span>
+    return (
+        <div className={classes.card}>
+            <ProductImage productId={product.id} />
 
-      <ProductVariationsItem
-        productId={product.id}
-        onCurrentVariationChanged={onProductVariationChanged}
-      />
+            <span className={classes.product_title}>{product.name}</span>
 
-      <button type="button" onClick={onAddToCartHandler}>
-        Добавить в корзину
-      </button>
-    </div>
-  );
+            <ProductVariationsItem
+                productId={product.id}
+                onCurrentVariationChanged={onProductVariationChanged}
+            />
+
+            <button type="button" onClick={onAddToCartHandler}>
+                Добавить в корзину
+            </button>
+        </div>
+    );
 };
 
 export default ProductItem;
