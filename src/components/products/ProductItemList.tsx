@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import ProductItem from './ProductItem';
 import classes from './ProductItemList.module.css';
 
 import { ProductType } from '../../types/entity-types';
@@ -13,7 +12,6 @@ import { useSelector } from 'react-redux';
 import { QuerySet } from 'redux-orm';
 import ProductItemMinInfo from './ProductItemMinInfo';
 import SelectProductPopup from './SelectProductPopup';
-import { Route, Routes } from 'react-router-dom';
 
 type ProductItemListProps = {
     categoryId: number;
@@ -29,16 +27,23 @@ const ProductItemList: React.FC<ProductItemListProps> = React.memo(
             (state: RootState) => state.shop.currentRange
         );
 
-        const getProductsFromSession = () :QuerySet => {
+        const getProductsFromSession = (): QuerySet => {
             return categoryId != -1
                 ? session.Product.filter((p) => p.category_id === categoryId)
                 : session.Product.all();
         };
         const convertToProductsArray = (productsFromSession: QuerySet) => {
             return productsFromSession
-            .toRefArray()
-            .slice(0, range) as ProductType[]
-        }
+                .toRefArray()
+                .slice(0, range) as ProductType[];
+        };
+
+        const [productToShow, setProductToShow] = useState<ProductType>();
+
+        const onShowVariations = useCallback((product: ProductType) => {
+            setProductToShow({ ...product });
+            setPopupVisible(true);
+        }, []);
 
         useEffect(() => {
             setLoading(true);
@@ -49,7 +54,7 @@ const ProductItemList: React.FC<ProductItemListProps> = React.memo(
 
             if (productsFromSession.count() > range) {
                 setProductsList([
-                    ...convertToProductsArray(productsFromSession)
+                    ...convertToProductsArray(productsFromSession),
                 ]);
                 setLoading(false);
             } else {
@@ -68,7 +73,7 @@ const ProductItemList: React.FC<ProductItemListProps> = React.memo(
 
                             productsFromSession = getProductsFromSession();
                             setProductsList([
-                                ...convertToProductsArray(productsFromSession)
+                                ...convertToProductsArray(productsFromSession),
                             ]);
                             setLoading(false);
                             window.scrollTo(0, document.body.scrollHeight);
@@ -80,6 +85,10 @@ const ProductItemList: React.FC<ProductItemListProps> = React.memo(
         const filteredProducts = productsList.filter(
             (p) => p.name.indexOf(searchValue) !== -1
         );
+        const [popupVisible, setPopupVisible] = useState(false);
+        const onClosePopup = () => {
+            setPopupVisible(false);
+        };
 
         return (
             <div className={classes.product_list}>
@@ -90,8 +99,20 @@ const ProductItemList: React.FC<ProductItemListProps> = React.memo(
                 {!loading &&
                     productsList.length > 0 &&
                     filteredProducts.map((p) => {
-                        return <ProductItemMinInfo key={p.id} product={p} />;
+                        return (
+                            <ProductItemMinInfo
+                                key={p.id}
+                                product={p}
+                                onShowVariations={onShowVariations}
+                            />
+                        );
                     })}
+                {popupVisible && productToShow?.id && (
+                    <SelectProductPopup
+                        product={productToShow}
+                        onCloseHandler={onClosePopup}
+                    />
+                )}
             </div>
         );
     }

@@ -1,25 +1,18 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { session } from '../../redux-store/redux-orm-store';
 import { ProductType } from '../../types/entity-types';
 import ProductItem from './ProductItem';
 import classes from './SelectProductPopup.module.css';
 
-const SelectProductPopup: React.FC = () => {
-    const params = useParams();
-    const productId = params.productId;
-    const [product, setProduct] = useState<ProductType>({} as ProductType);
-    
-    useEffect(() => {
-        const productFromSession = session.Product.withId(productId);
-        console.log(productFromSession);
-        if (productFromSession != null)
-            setProduct({ ...(productFromSession as any) });
-    }, [productId]);
+type SelectProductPopupProps = {
+    product: ProductType;
+    onCloseHandler: () => void;
+};
 
-    const navigate = useNavigate();
+const SelectProductPopup: React.FC<SelectProductPopupProps> = ({
+    product,
+    onCloseHandler,
+}) => {
     const onClosePopupClick = () => {
-        navigate('/');
+        onCloseHandler();
     };
 
     return (

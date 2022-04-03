@@ -17,12 +17,7 @@ function App() {
             <div className="sidebar">Реклама и акции</div>
             <div className="main">
                 <Routes>
-                    <Route path="/" element={<Main />}>
-                        <Route
-                            path="/selectproduct/:productId"
-                            element={<SelectProductPopup />}
-                        />
-                    </Route>
+                    <Route path="/" element={<Main />} />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/order" element={<Order />} />
                     <Route path="/history" element={<OrderHistory />} />

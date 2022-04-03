@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { passDataToSession, session } from '../../redux-store/redux-orm-store';
 import { ProductType, ProductVariationType } from '../../types/entity-types';
 import ProductImage from './ProductImage';
@@ -9,16 +8,19 @@ import classes from './ProductItemMinInfo.module.css';
 
 type ProductItemMinInfoProps = {
     product: ProductType;
+    onShowVariations: (product: ProductType) => void;
 };
 
-const ProductItemMinInfo: React.FC<ProductItemMinInfoProps> = ({ product }) => {
+const ProductItemMinInfo: React.FC<ProductItemMinInfoProps> = ({
+    product,
+    onShowVariations,
+}) => {
     const [currentVariation, setCurrentVariation] =
         useState<ProductVariationType>({} as ProductVariationType);
 
-    const navigate = useNavigate();
-    const onAddToCartHandler = () => {
-        navigate(`/selectproduct/${product.id}`, { replace: false });
-    };
+    const onAddToCartHandler = useCallback(() => {
+        onShowVariations(product);
+    }, [product.id]);
 
     useEffect(() => {
         const productVariations = session.ProductVariation.filter(
@@ -65,9 +67,11 @@ const ProductItemMinInfo: React.FC<ProductItemMinInfoProps> = ({ product }) => {
                 </span>
             </div>
 
-            <button type="button" onClick={onAddToCartHandler}>
-                Выбрать вариацию
-            </button>
+            {currentVariation.id && (
+                <button type="button" onClick={onAddToCartHandler}>
+                    Выбрать вариацию
+                </button>
+            )}
         </div>
     );
 };

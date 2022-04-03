@@ -38,13 +38,6 @@ const Main: React.FC = () => {
                 onClick={onMoreClick}>
                 Показать больше товаров
             </button>
-
-            <Routes>
-                <Route
-                    path="/selectproduct/:productId"
-                    element={<SelectProductPopup />}
-                />
-            </Routes>
         </Fragment>
     );
 };

@@ -9,7 +9,7 @@
 .popup_body {
     position: relative;
     top: 10%;
-    left: 40%;
+    margin: auto;
     background-color: white;
     display: flex;
     row-gap: 0.5rem;
