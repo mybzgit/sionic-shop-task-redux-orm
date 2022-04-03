@@ -12,7 +12,6 @@ import classes from './ProductItemList.module.css';
 import ProductItemMinInfo from './ProductItemMinInfo';
 import SelectProductPopup from './SelectProductPopup';
 
-
 type ProductItemListProps = {
   categoryId: number;
   searchValue: string;
@@ -69,7 +68,7 @@ const ProductItemList: React.FC<ProductItemListProps> = React.memo(
             }
           });
       }
-    }, [categoryId, range, convertToProductsArray, getProductsFromSession]);
+    }, [categoryId, range]);
 
     const filteredProducts = productsList.filter(
       (p) => p.name.indexOf(searchValue) !== -1
