@@ -2,7 +2,7 @@ import React, {
   ChangeEvent,
   ChangeEventHandler,
   useCallback,
-  useState
+  useState,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { Action, ActionType } from '../../types/shop-store-types';

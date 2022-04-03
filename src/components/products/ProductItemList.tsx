@@ -5,7 +5,7 @@ import { QuerySet } from 'redux-orm';
 import {
   passDataToSession,
   RootState,
-  session
+  session,
 } from '../../redux-store/redux-orm-store';
 import { ProductType } from '../../types/entity-types';
 import classes from './ProductItemList.module.css';

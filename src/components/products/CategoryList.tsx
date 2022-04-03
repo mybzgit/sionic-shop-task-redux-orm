@@ -3,14 +3,14 @@ import React, {
   ChangeEvent,
   ChangeEventHandler,
   useEffect,
-  useState
+  useState,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { passDataToSession, session } from '../../redux-store/redux-orm-store';
 import {
   CategoryType,
   ProductVariationPropertyListValueType,
-  ProductVariationPropertyType
+  ProductVariationPropertyType,
 } from '../../types/entity-types';
 import { Action, ActionType } from '../../types/shop-store-types';
 import classes from './CategoryList.module.css';

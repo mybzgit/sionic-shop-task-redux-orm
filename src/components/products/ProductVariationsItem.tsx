@@ -2,12 +2,15 @@ import axios from 'axios';
 import React, {
   ChangeEvent,
   ChangeEventHandler,
-  Fragment, useCallback, useEffect,
-  useState
+  Fragment,
+  useCallback,
+  useEffect,
+  useState,
 } from 'react';
 import { passDataToSession, session } from '../../redux-store/redux-orm-store';
 import {
-  ProductVariationPropertyValueType, ProductVariationType
+  ProductVariationPropertyValueType,
+  ProductVariationType,
 } from '../../types/entity-types';
 import ProductVariationPropertiesList from './ProductVariationPropertiesList';
 import classes from './ProductVariationsItem.module.css';

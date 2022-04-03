@@ -4,7 +4,7 @@ import {
   getPropertyValueByType,
   ProductVariationPropertyListValueType,
   ProductVariationPropertyType,
-  ProductVariationPropertyValueType
+  ProductVariationPropertyValueType,
 } from '../../types/entity-types';
 import classes from './ProductVariationPropertiesList.module.css';
 

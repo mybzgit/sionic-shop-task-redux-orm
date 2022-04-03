@@ -1,13 +1,22 @@
 import { combineReducers, createStore } from 'redux';
 import { createReducer, ORM } from 'redux-orm';
 import {
-  CategoryType, ProductImageType, ProductType, ProductVariationPropertyListValueType, ProductVariationPropertyType,
-  ProductVariationPropertyValueType, ProductVariationType
+  CategoryType,
+  ProductImageType,
+  ProductType,
+  ProductVariationPropertyListValueType,
+  ProductVariationPropertyType,
+  ProductVariationPropertyValueType,
+  ProductVariationType,
 } from '../types/entity-types';
 import {
-  Category, Product, ProductImage,
+  Category,
+  Product,
+  ProductImage,
   ProductVariation,
-  ProductVariationProperty, ProductVariationPropertyListValue, ProductVariationPropertyValue
+  ProductVariationProperty,
+  ProductVariationPropertyListValue,
+  ProductVariationPropertyValue,
 } from './redux-orm-entities';
 import shopReducer from './shop-reducer';
 
