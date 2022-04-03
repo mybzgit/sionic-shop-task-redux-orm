@@ -1,11 +1,11 @@
 import React, { Fragment, useCallback } from 'react';
-import ProductItemList from '../components/products/ProductItemList';
-import Title from '../components/navigation/Title';
-import classes from './Main.module.css';
-import CategoryList from '../components/products/CategoryList';
 import { useDispatch, useSelector } from 'react-redux';
+import Title from '../components/navigation/Title';
+import CategoryList from '../components/products/CategoryList';
+import ProductItemList from '../components/products/ProductItemList';
 import { RootState } from '../redux-store/redux-orm-store';
 import { ActionType } from '../types/shop-store-types';
+import classes from './Main.module.css';
 
 const Main: React.FC = () => {
   const searchValue = useSelector<RootState, string>(

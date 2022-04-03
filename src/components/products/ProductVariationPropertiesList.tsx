@@ -1,11 +1,10 @@
-import React from 'react';
-import { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { session } from '../../redux-store/redux-orm-store';
 import {
   getPropertyValueByType,
   ProductVariationPropertyListValueType,
   ProductVariationPropertyType,
-  ProductVariationPropertyValueType,
+  ProductVariationPropertyValueType
 } from '../../types/entity-types';
 import classes from './ProductVariationPropertiesList.module.css';
 

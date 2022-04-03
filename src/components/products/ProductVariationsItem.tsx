@@ -1,16 +1,13 @@
 import axios from 'axios';
-import React, { useCallback } from 'react';
-import {
+import React, {
   ChangeEvent,
   ChangeEventHandler,
-  Fragment,
-  useEffect,
-  useState,
+  Fragment, useCallback, useEffect,
+  useState
 } from 'react';
 import { passDataToSession, session } from '../../redux-store/redux-orm-store';
 import {
-  ProductVariationType,
-  ProductVariationPropertyValueType,
+  ProductVariationPropertyValueType, ProductVariationType
 } from '../../types/entity-types';
 import ProductVariationPropertiesList from './ProductVariationPropertiesList';
 import classes from './ProductVariationsItem.module.css';

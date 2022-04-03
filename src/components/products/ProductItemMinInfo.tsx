@@ -1,6 +1,5 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
-import { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { passDataToSession, session } from '../../redux-store/redux-orm-store';
 import { ProductType, ProductVariationType } from '../../types/entity-types';
 import ProductImage from './ProductImage';

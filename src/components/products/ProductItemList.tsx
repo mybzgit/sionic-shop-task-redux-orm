@@ -1,17 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import classes from './ProductItemList.module.css';
-
-import { ProductType } from '../../types/entity-types';
 import axios from 'axios';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { QuerySet } from 'redux-orm';
 import {
   passDataToSession,
   RootState,
-  session,
+  session
 } from '../../redux-store/redux-orm-store';
-import { useSelector } from 'react-redux';
-import { QuerySet } from 'redux-orm';
+import { ProductType } from '../../types/entity-types';
+import classes from './ProductItemList.module.css';
 import ProductItemMinInfo from './ProductItemMinInfo';
 import SelectProductPopup from './SelectProductPopup';
+
 
 type ProductItemListProps = {
   categoryId: number;

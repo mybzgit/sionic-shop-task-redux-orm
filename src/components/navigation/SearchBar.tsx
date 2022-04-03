@@ -2,11 +2,11 @@ import React, {
   ChangeEvent,
   ChangeEventHandler,
   useCallback,
-  useState,
+  useState
 } from 'react';
 import { useDispatch } from 'react-redux';
-import classes from './SearchBar.module.css';
 import { Action, ActionType } from '../../types/shop-store-types';
+import classes from './SearchBar.module.css';
 
 const SearchBar: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>('');

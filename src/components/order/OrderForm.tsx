@@ -4,10 +4,10 @@ import React, {
   Fragment,
   useCallback,
   useRef,
-  useState,
+  useState
 } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../redux-store/redux-orm-store';
 import { Action, ActionType } from '../../types/shop-store-types';
 import classes from './OrderForm.module.css';

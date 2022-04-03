@@ -1,4 +1,4 @@
-import { Model, fk, attr } from 'redux-orm';
+import { attr, fk, Model } from 'redux-orm';
 
 export class Category extends Model {
   static modelName = 'Category';

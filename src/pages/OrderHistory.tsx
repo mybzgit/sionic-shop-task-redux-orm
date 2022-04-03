@@ -10,14 +10,16 @@ const OrderHistory: React.FC = () => {
     (state: RootState) => state.shop.ordersList
   );
 
+  const ordersNoFound = orderHistoryList.length === 0 && (
+    <span>Вы не сделали ни одного заказа</span>
+  );
+
   return (
     <Fragment>
       <Title text="История заказов" />
       <br />
       <div className={classes.history_list}>
-        {orderHistoryList.length === 0 && (
-          <span>Вы не сделали ни одного заказа</span>
-        )}
+        {ordersNoFound}
         {orderHistoryList.length > 0 &&
           orderHistoryList.map((item) => {
             return <HistoryItem key={item.id} orderInfo={item} />;

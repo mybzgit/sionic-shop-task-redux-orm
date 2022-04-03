@@ -1,9 +1,9 @@
+import { useSelector } from 'react-redux';
 import Title from '../components/navigation/Title';
-import classes from './Order.module.css';
 import OrderForm from '../components/order/OrderForm';
 import OrderInfo from '../components/order/OrderInfo';
-import { useSelector } from 'react-redux';
 import { RootState } from '../redux-store/redux-orm-store';
+import classes from './Order.module.css';
 
 const Order: React.FC = () => {
   const total = useSelector((state: RootState) => state.shop.total);
