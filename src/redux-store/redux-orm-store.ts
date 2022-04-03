@@ -18,7 +18,7 @@ import {
     ProductVariationPropertyListValueType,
 } from '../types/entity-types';
 
-import { createStore, combineReducers, compose } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { ORM, createReducer } from 'redux-orm';
 
 import shopReducer from './shop-reducer';
@@ -54,10 +54,7 @@ const rootReducer = combineReducers({
     shop: shopReducer,
 });
 
-export const composeEnhancers =
-    (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
-
-export const store = createStore(rootReducer, composeEnhancers());
+export const store = createStore(rootReducer);
 export type RootState = ReturnType<typeof store.getState>;
 export const session = orm.session(store.getState().orm);
 

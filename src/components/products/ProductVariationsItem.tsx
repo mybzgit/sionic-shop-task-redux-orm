@@ -52,10 +52,8 @@ const ProductVariationsItem: React.FC<ProductVariationsItemProps> = ({
         } else {
             const productVariationFromSession = productVariations
                 .all()
-                .toRefArray()
-                .map((i) => {
-                    return i as ProductVariationType;
-                });
+                .toRefArray() as ProductVariationType[];
+
             productVariationFromSession.sort((v1, v2) =>
                 v1.price > v2.price ? 1 : -1
             );

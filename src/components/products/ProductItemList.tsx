@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import ProductItem from './ProductItem';
 import classes from './ProductItemList.module.css';
 
@@ -10,6 +10,7 @@ import {
     session,
 } from '../../redux-store/redux-orm-store';
 import { useSelector } from 'react-redux';
+import { QuerySet } from 'redux-orm';
 
 type ProductItemListProps = {
     categoryId: number;
@@ -25,23 +26,27 @@ const ProductItemList: React.FC<ProductItemListProps> = React.memo(
             (state: RootState) => state.shop.currentRange
         );
 
+        const getProductsFromSession = () :QuerySet => {
+            return categoryId != -1
+                ? session.Product.filter((p) => p.category_id === categoryId)
+                : session.Product.all();
+        };
+        const convertToProductsArray = (productsFromSession: QuerySet) => {
+            return productsFromSession
+            .toRefArray()
+            .slice(0, range) as ProductType[]
+        }
+
         useEffect(() => {
             setLoading(true);
             const categoryQuery =
                 categoryId == -1 ? '' : `filter={"category_id":${categoryId}}`;
 
-            let productsFromSession =
-                categoryId != -1
-                    ? session.Product.filter(
-                          (p) => p.category_id === categoryId
-                      )
-                    : session.Product.all();
+            let productsFromSession = getProductsFromSession();
 
             if (productsFromSession.count() > range) {
                 setProductsList([
-                    ...(productsFromSession
-                        .toRefArray()
-                        .slice(0, range) as ProductType[]),
+                    ...convertToProductsArray(productsFromSession)
                 ]);
                 setLoading(false);
             } else {
@@ -58,17 +63,9 @@ const ProductItemList: React.FC<ProductItemListProps> = React.memo(
                                 'ProductType'
                             );
 
-                            productsFromSession =
-                                categoryId != -1
-                                    ? session.Product.filter(
-                                          (p) => p.category_id === categoryId
-                                      )
-                                    : session.Product.all();
-
+                            productsFromSession = getProductsFromSession();
                             setProductsList([
-                                ...(productsFromSession
-                                    .toRefArray()
-                                    .slice(0, range) as ProductType[]),
+                                ...convertToProductsArray(productsFromSession)
                             ]);
                             setLoading(false);
                             window.scrollTo(0, document.body.scrollHeight);

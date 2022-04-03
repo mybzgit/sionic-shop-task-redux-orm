@@ -14,22 +14,22 @@
     grid-template-rows: 5rem 1fr 6rem;
     height: 100vh;
 }
-.App .header {
+.header {
     grid-column: span 1;
     grid-row: span 1;
 }
-.App .sidebar {
+.sidebar {
     grid-column: span 1;
     grid-row: span 2;
     border-left: 1px solid var(--secondary-back-color);
     padding: 2rem;
 }
-.App .main {
+.main {
     grid-column: span 1;
     grid-row: span 1;
     padding: 2rem;
 }
-.App .footer {
+.footer {
     grid-column: span 2;
     grid-row: span 1;
 }

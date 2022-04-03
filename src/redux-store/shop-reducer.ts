@@ -108,7 +108,7 @@ const shopReducer: Reducer<State, Action> = (
     if (action.type === ActionType.CHANGE_CURRENT_RANGE) {
         return {
             ...state,
-            currentRange: state.currentRange + 8,
+            currentRange: state.currentRange + 4,
         };
     }
 

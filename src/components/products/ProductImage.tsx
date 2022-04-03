@@ -37,10 +37,7 @@ const ProductImage: React.FC<ProductImageProps> = React.memo(
             } else {
                 const imagesFromSession = images
                     .all()
-                    .toRefArray()
-                    .map((i) => {
-                        return i as ProductImageType;
-                    });
+                    .toRefArray() as ProductImageType[];
                 setProductImages([...imagesFromSession]);
             }
         }, []);
@@ -54,7 +51,7 @@ const ProductImage: React.FC<ProductImageProps> = React.memo(
 
         return (
             <Fragment>
-                {productImages.length == 0 && <img alt="Loading images..." />}
+                {productImages.length == 0 && <img alt="Loading product images..." />}
                 {productImages.length > 0 && (
                     <img
                         onClick={onImageClick}

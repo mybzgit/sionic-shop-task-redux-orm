@@ -30,10 +30,7 @@ const CategoryList: React.FC = React.memo(() => {
                 });
         } else {
             const categoriesFromSession = session.Category.all()
-                .toRefArray()
-                .map((c) => {
-                    return c as CategoryType;
-                });
+                .toRefArray() as CategoryType[];
             setCategories([...categoriesFromSession]);
         }
     }, []);
