@@ -2,4 +2,5 @@
     display: flex;
     column-gap: 0.2rem;
     row-gap: 0.2rem;
+    flex-wrap: wrap;
 }

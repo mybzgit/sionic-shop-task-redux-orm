@@ -11,7 +11,7 @@ import {
     CategoryType,
     ProductVariationPropertyListValueType,
     ProductVariationPropertyType,
-} from '../../types/Entities';
+} from '../../types/entity-types';
 import { Action, ActionType } from '../../types/shop-store-types';
 import classes from './CategoryList.module.css';
 

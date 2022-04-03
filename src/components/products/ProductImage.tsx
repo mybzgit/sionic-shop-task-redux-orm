@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react';
 import { passDataToSession, session } from '../../redux-store/redux-orm-store';
-import { ProductImageType } from '../../types/Entities';
+import { ProductImageType } from '../../types/entity-types';
 
 type ProductImageProps = {
     productId: number;

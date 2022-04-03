@@ -1,15 +1,16 @@
 .history_item {
     border: 1px solid var(--secondary-border-color);
     border-radius: 1rem;
-    width: 400px;
+    min-width: 400px;
+    max-width: fit-content;
     height: auto;
-    padding: 1rem 1rem 3rem 1rem;
+    padding: 1rem;
     font-size: 0.9rem;
 }
 
 .item_header {
     display: grid;
-    grid-template-columns: 70px repeat(2, 7rem);
+    grid-template-columns: 70px repeat(3, 7rem);
     grid-template-rows: repeat(2, 1.5rem);
 }
 
@@ -23,11 +24,12 @@
 
 .order_name {
     font-weight: 600;
-    grid-column: span 2;
+    grid-column: span 3;
     justify-self: start;
     font-size: 1rem;
 }
 .order_date {
+    grid-column: span 2;
     font-weight: 600;
     font-size: 1rem;
     color: var(--primary-fore-color);

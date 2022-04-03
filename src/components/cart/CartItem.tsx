@@ -1,4 +1,3 @@
-import { read } from 'fs';
 import React, {
     ChangeEvent,
     ChangeEventHandler,
@@ -7,14 +6,10 @@ import React, {
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { session } from '../../redux-store/redux-orm-store';
-import {
-    getPropertyValueByType,
-    ProductVariationPropertyListValueType,
-    ProductVariationPropertyType,
-    ProductVariationPropertyValueType,
-} from '../../types/Entities';
+import { ProductVariationPropertyValueType } from '../../types/entity-types';
 import { Action, ActionType, CartItemInfo } from '../../types/shop-store-types';
 import ProductImage from '../products/ProductImage';
+import ProductVariationPropertiesList from '../products/ProductVariationPropertiesList';
 import classes from './CartItem.module.css';
 
 type CartItemProps = {
@@ -36,13 +31,7 @@ const CartItem: React.FC<CartItemProps> = React.memo(
                 .all()
                 .toRefArray() as ProductVariationPropertyValueType[];
 
-        const productVariationProperties: ProductVariationPropertyType[] =
-            session.ProductVariationProperty.all().toRefArray() as ProductVariationPropertyType[];
-        const productVariationPropertyListValues: ProductVariationPropertyListValueType[] =
-            session.ProductVariationPropertyListValue.all().toRefArray() as ProductVariationPropertyListValueType[];
-
         const dispatch = useDispatch();
-
         const onRemoveItemHandler = useCallback(() => {
             const action: Action = {
                 type: ActionType.REMOVE_FROM_CART,
@@ -68,19 +57,19 @@ const CartItem: React.FC<CartItemProps> = React.memo(
             );
 
         const [count, setCount] = useState(cartItemData.count);
+        const inputId =
+            cartItemData.product_id + '_' + cartItemData.product_variation_id;
 
         return (
             <div className={classes.item}>
-                <ProductImage productId={cartItemData.product_id} />
+                {!readonly && (
+                    <ProductImage productId={cartItemData.product_id} />
+                )}
                 <span className={classes.product_title}>{productName}</span>
 
                 {!readonly && (
                     <input
-                        id={
-                            cartItemData.product_id +
-                            '_' +
-                            cartItemData.product_variation_id
-                        }
+                        id={inputId}
                         type="number"
                         min="1"
                         max="5"
@@ -88,31 +77,19 @@ const CartItem: React.FC<CartItemProps> = React.memo(
                         onChange={onItemCountChanged}></input>
                 )}
 
-                {productVariationProperties.length > 0 &&
-                    productVariationPropertyValues.length > 0 &&
-                    productVariationPropertyListValues.length > 0 &&
-                    productVariationProperties.map((pvp) => {
-                        return (
-                            <span
-                                className={classes.product_variation}
-                                key={pvp.id}>
-                                <b>{pvp.name}:</b>{' '}
-                                {getPropertyValueByType(
-                                    pvp.id,
-                                    pvp.type,
-                                    productVariationPropertyValues,
-                                    productVariationPropertyListValues
-                                )}
-                            </span>
-                        );
-                    })}
+                <ProductVariationPropertiesList
+                    productVariationPropertyValues={
+                        productVariationPropertyValues
+                    }
+                />
 
-                <span className={classes.total_price}>
-                    {cartItemData.price * cartItemData.count} &#8381;
-                </span>
                 <span className={classes.price}>
                     ({cartItemData.count}x{cartItemData.price} &#8381;)
                 </span>
+                <span className={classes.total_price}>
+                    {cartItemData.price * cartItemData.count} &#8381;
+                </span>
+
                 {!readonly && (
                     <button type="button" onClick={onRemoveItemHandler}>
                         <i className="bi bi-trash"></i>

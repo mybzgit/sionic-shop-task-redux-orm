@@ -1,11 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { session } from '../../redux-store/redux-orm-store';
-import {
-    ProductType,
-    ProductImageType,
-    ProductVariationType,
-} from '../../types/Entities';
+import { ProductType } from '../../types/entity-types';
 import { Action, ActionType } from '../../types/shop-store-types';
 import ProductImage from './ProductImage';
 import classes from './ProductItem.module.css';

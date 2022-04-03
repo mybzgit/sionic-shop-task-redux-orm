@@ -26,3 +26,8 @@
     color: var(--primary-fore-color);
     font-style: italic;
 }
+.variations_properties {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}

@@ -16,7 +16,7 @@ import {
     ProductVariationPropertyType,
     ProductVariationPropertyValueType,
     ProductVariationPropertyListValueType,
-} from '../types/Entities';
+} from '../types/entity-types';
 
 import { createStore, combineReducers, compose } from 'redux';
 import { ORM, createReducer } from 'redux-orm';
@@ -59,8 +59,7 @@ export const composeEnhancers =
 
 export const store = createStore(rootReducer, composeEnhancers());
 export type RootState = ReturnType<typeof store.getState>;
-const dbState = store.getState().orm;
-export const session = orm.session(dbState);
+export const session = orm.session(store.getState().orm);
 
 export const passDataToSession = (array: any[], type: string): void => {
     array.map((item) => {

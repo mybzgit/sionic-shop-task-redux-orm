@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import ProductItemList from '../components/products/ProductItemList';
 import Title from '../components/navigation/Title';
 import classes from './Main.module.css';
@@ -16,7 +16,6 @@ const Main: React.FC = () => {
     );
 
     const dispatch = useDispatch();
-
     const onMoreClick = () => {
         dispatch({ type: ActionType.CHANGE_CURRENT_RANGE });
     };

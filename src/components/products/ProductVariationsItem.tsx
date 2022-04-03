@@ -10,11 +10,9 @@ import {
 import { passDataToSession, session } from '../../redux-store/redux-orm-store';
 import {
     ProductVariationType,
-    ProductVariationPropertyType,
-    ProductVariationPropertyListValueType,
     ProductVariationPropertyValueType,
-} from '../../types/Entities';
-import { getPropertyValueByType } from '../../types/Entities';
+} from '../../types/entity-types';
+import ProductVariationPropertiesList from './ProductVariationPropertiesList';
 import classes from './ProductVariationsItem.module.css';
 
 type ProductVariationsItemProps = {
@@ -70,25 +68,8 @@ const ProductVariationsItem: React.FC<ProductVariationsItemProps> = ({
             onCurrentVariationChanged(variations[currentVariationIndex].id);
     }, [currentVariationIndex, variations]);
 
-    const [productVariationProperties, setProductVariationProperties] =
-        useState<ProductVariationPropertyType[]>([]);
     const [productVariationPropertyValues, setProductVariationPropertyValues] =
         useState<ProductVariationPropertyValueType[]>([]);
-    const [
-        productVariationPropertyListValues,
-        setProductVariationPropertyListValues,
-    ] = useState<ProductVariationPropertyListValueType[]>([]);
-
-    useEffect(() => {
-        const sessionDataProductVariationProperty =
-            session.ProductVariationProperty.all().toRefArray() as ProductVariationPropertyType[];
-        setProductVariationProperties(sessionDataProductVariationProperty);
-        const sessionDataProductVariationPropertyListValues =
-            session.ProductVariationPropertyListValue.all().toRefArray() as ProductVariationPropertyListValueType[];
-        setProductVariationPropertyListValues(
-            sessionDataProductVariationPropertyListValues
-        );
-    }, []);
 
     useEffect(() => {
         if (variations.length !== 0) {
@@ -168,23 +149,16 @@ const ProductVariationsItem: React.FC<ProductVariationsItemProps> = ({
                     </span>
                 </Fragment>
             )}
-            <br />
-            {productVariationProperties.length > 0 &&
-                productVariationPropertyValues.length > 0 &&
-                productVariationPropertyListValues.length > 0 &&
-                productVariationProperties.map((pvp) => {
-                    return (
-                        <span className={classes.variations} key={pvp.id}>
-                            <b>{pvp.name}:</b>{' '}
-                            {getPropertyValueByType(
-                                pvp.id,
-                                pvp.type,
-                                productVariationPropertyValues,
-                                productVariationPropertyListValues
-                            )}
-                        </span>
-                    );
-                })}
+
+            {productVariationPropertyValues.length > 0 && (
+                <div className={classes.variations_properties}>
+                    <ProductVariationPropertiesList
+                        productVariationPropertyValues={
+                            productVariationPropertyValues
+                        }
+                    />
+                </div>
+            )}
         </div>
     );
 };

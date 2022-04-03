@@ -35,11 +35,6 @@ const shopReducer: Reducer<State, Action> = (
                 i.product_id == itemToAdd.product_id &&
                 i.product_variation_id == itemToAdd.product_variation_id
         );
-        const other = state.cart.filter(
-            (i) =>
-                i.product_id !== itemToAdd.product_id ||
-                i.product_variation_id !== itemToAdd.product_variation_id
-        );
         if (duplicate) {
             duplicate.count = duplicate.count + 1;
             return {

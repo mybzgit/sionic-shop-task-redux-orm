@@ -24,14 +24,14 @@ const HistoryItem: React.FC<HistoryItemProps> = ({ orderInfo }) => {
                     Заказ №{orderInfo.id}
                 </span>
                 <span className={classes.order_date}>{orderInfo.date}</span>
-                <span onClick={onShowDetailsClick}>Подробнее</span>
-                {showDetails && (
+                <span onClick={onShowDetailsClick}>Подробнее</span>         
+            </div>
+            {showDetails && (
                     <CartItemList
                         cartData={orderInfo.cartInfo}
                         readonly={true}
                     />
                 )}
-            </div>
             <div className={classes.item_row}>
                 <div className={classes.info_block}>
                     <span>Статус заказа</span>

@@ -12,7 +12,6 @@ const SearchBar: React.FC = () => {
     const [searchValue, setSearchValue] = useState<string>('');
 
     const dispatch = useDispatch();
-
     const onSearch = useCallback(() => {
         const action: Action = {
             type: ActionType.SET_SEARCH_VALUE,

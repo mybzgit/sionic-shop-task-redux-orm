@@ -3,8 +3,10 @@
     padding: 1rem 0;
     display: flex;
     column-gap: 1rem;
+    row-gap: 0.5rem;
     align-items: center;
     justify-items: stretch;
+    flex-wrap: wrap;
 }
 .home_link {
     font-weight: bold;
@@ -25,4 +27,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+ @media (max-width: 600px) {
+     .home_link{
+         order:1;
+     }
+     .location{
+         order: 2;
+     }
+    .cart {
+        order: 3;
+    }
+    .profile {
+        order: 4;
+    }
 }

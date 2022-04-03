@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ProductItem from './ProductItem';
 import classes from './ProductItemList.module.css';
 
-import { ProductType } from '../../types/Entities';
+import { ProductType } from '../../types/entity-types';
 import axios from 'axios';
 import {
     passDataToSession,

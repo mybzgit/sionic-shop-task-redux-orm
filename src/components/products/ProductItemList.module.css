@@ -5,3 +5,27 @@
     column-gap: 0.5rem;
     row-gap: 0.5rem;
 }
+
+
+
+
+
+@media (max-width: 1000px) {
+    .product_list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 800px) {
+    .product_list {
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .product_list {
+        grid-template-columns: 1fr;
+        
+    }
+}

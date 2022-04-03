@@ -19,8 +19,8 @@ const OrderHistory: React.FC = () => {
                     <span>Вы не сделали ни одного заказа</span>
                 )}
                 {orderHistoryList.length > 0 &&
-                    orderHistoryList.map((oh) => {
-                        return <HistoryItem key={oh.id} orderInfo={oh} />;
+                    orderHistoryList.map((item) => {
+                        return <HistoryItem key={item.id} orderInfo={item} />;
                     })}
             </div>
         </Fragment>
